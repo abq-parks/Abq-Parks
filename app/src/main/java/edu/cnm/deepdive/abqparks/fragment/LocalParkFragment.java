@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,9 +28,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.abqparks.R;
-//implements OnMapReadyCallback
-public class LocalParkFragment extends Fragment {
+import edu.cnm.deepdive.abqparks.model.Park;
+import edu.cnm.deepdive.abqparks.service.ParksService;
+import java.io.IOException;
+import java.util.List;
+import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
@@ -39,8 +53,13 @@ public class LocalParkFragment extends Fragment {
   private double deviceLng;
   private MapView mapView;
   private GoogleMap map;
+  private List<Park> parks;
 
   private Button reviewButton;
+  private Button reviewSaveButton;
+  private RecyclerView reviewList;
+  private EditText reviewText;
+  private ParksService parkService;
 
   public LocalParkFragment() {
     // Required empty public constructor
@@ -63,8 +82,9 @@ public class LocalParkFragment extends Fragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_local_park, container, false);
-//    mapView = view.findViewById(R.id.local_map_view);
-//    mapView.onCreate(savedInstanceState);
+    mapView = view.findViewById(R.id.local_map_view);
+    mapView.onCreate(savedInstanceState);
+
     reviewButton = view.findViewById(R.id.review_button);
     reviewButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -125,59 +145,112 @@ public class LocalParkFragment extends Fragment {
     if (location != null) {
       deviceLat = location.getLatitude();
       deviceLng = location.getLongitude();
-//      mapView.getMapAsync(this); // onMapyReady() callback will be called in response
+      setupServices();
     } else {
       Toast.makeText(getActivity(), getString(R.string.device_location_failure), Toast.LENGTH_SHORT).show();
     }
   }
 
-//  @Override
-//  public void onMapReady(GoogleMap googleMap) {
-//    if (googleMap != null) {
-//      map = googleMap;
-//      updateMap();
-//    }
-//  }
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    if (googleMap != null) {
+      map = googleMap;
+      updateMap();
+    }
+  }
 
-//  // TODO: Add markers for list of parks returned from request to backend.
-//  private void updateMap(){
-//    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
-//  }
+  // TODO: Add markers for list of parks returned from request to backend.
+  private void updateMap(){
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
+  }
+
+  private void setupServices() {
+    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(Level.BODY);
+    OkHttpClient.Builder httpClient = new Builder();
+    httpClient.addInterceptor(loggingInterceptor);
+    Gson gson = new GsonBuilder().
+        excludeFieldsWithoutExposeAnnotation()
+        .create();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://localhost:25052//rest/abq_park/") // TODO: replace with buildconfig or constant
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .client(httpClient.build())
+        .build();
+    parkService = retrofit.create(ParksService.class);
+    new ParksAsync().execute();
+  }
 
   // TODO: save postal code to recover from fragment/activity destruction.
-//  @Override
-//  public void onSaveInstanceState(Bundle outState) {
-//    super.onSaveInstanceState(outState);
-//    mapView.onSaveInstanceState(outState);
-//  }
-//
-//  @Override
-//  public void onResume() {
-//    super.onResume();
-//    mapView.onResume();
-//  }
-//
-//  @Override
-//  public void onStart() {
-//    super.onStart();
-//    mapView.onStart();
-//  }
-//
-//  @Override
-//  public void onStop() {
-//    super.onStop();
-//    mapView.onStart();
-//  }
-//
-//  @Override
-//  public void onPause() {
-//    super.onPause();
-//    mapView.onPause();
-//  }
-//
-//  @Override
-//  public void onDestroy() {
-//    super.onDestroy();
-//    mapView.onDestroy();
-//  }
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mapView.onDestroy();
+  }
+
+  private class ParksAsync extends AsyncTask<Void, Void, List<Park>> {
+
+    @Override
+    protected void onCancelled() {
+      super.onCancelled();
+      Toast.makeText(getActivity(), getString(R.string.parks_request_failure), Toast.LENGTH_SHORT)
+          .show();
+    }
+
+    @Override
+    protected void onPostExecute(List<Park> parks) {
+      super.onPostExecute(parks);
+      if (parks != null) {
+        LocalParkFragment.this.parks = parks;
+        // request GoogleMap object
+        LocalParkFragment.this.mapView.getMapAsync(LocalParkFragment.this);
+      }
+    }
+
+    @Override
+    protected List<Park> doInBackground(Void... voids) {
+      try {
+        Response<List<Park>> response = parkService.getAllParks().execute();
+        if (response.isSuccessful() && response.body() != null) {
+          return response.body();
+        } else {
+          cancel(true);
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+        cancel(true);
+      }
+      return null;
+    }
+  }
 }
