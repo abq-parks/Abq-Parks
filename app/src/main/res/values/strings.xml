@@ -3,4 +3,6 @@
   <string name="title_home">Home</string>
   <string name="local_search">Local</string>
   <string name="amenity_search">Search</string>
+  <string name="device_location_failure">Unable to determine device location.</string>
+  <string name="location_permission_denial">Cannot locate local parks without location permissions.</string>
 </resources>
