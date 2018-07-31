@@ -15,4 +15,7 @@ public interface ParksService {
   @GET("parks/{amenities}")
   Call<List<Park>> getParks(@Path("amenities") String amenities);
 
+  @GET("parks")
+  Call<List<Park>> getAllParks();
+
 }
