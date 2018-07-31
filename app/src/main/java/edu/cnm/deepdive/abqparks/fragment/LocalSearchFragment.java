@@ -16,9 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import edu.cnm.deepdive.abqparks.R;
 
 public class LocalSearchFragment extends Fragment implements OnMapReadyCallback {
@@ -52,12 +56,14 @@ public class LocalSearchFragment extends Fragment implements OnMapReadyCallback 
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_local_search, container, false);
+    View view = inflater.inflate(R.layout.fragment_local_search, container, false);
+    mapView = view.findViewById(R.id.local_map_view);
+    mapView.onCreate(savedInstanceState);
+    return view;
   }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    mapView = view.findViewById(R.id.local_map_view);
     if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION)
         != PackageManager.PERMISSION_GRANTED) {
       requestPermissions();
@@ -112,14 +118,45 @@ public class LocalSearchFragment extends Fragment implements OnMapReadyCallback 
     }
   }
 
+  // TODO: Add markers for list of parks returned from request to backend.
   private void updateMap(){
-
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
   }
-
 
   // TODO: save postal code to recover from fragment/activity destruction.
   @Override
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mapView.onDestroy();
   }
 }
