@@ -16,16 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import edu.cnm.deepdive.abqparks.R;
 
-public class LocalSearchFragment extends Fragment implements OnMapReadyCallback {
+public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
@@ -36,12 +34,12 @@ public class LocalSearchFragment extends Fragment implements OnMapReadyCallback 
   private MapView mapView;
   private GoogleMap map;
 
-  public LocalSearchFragment() {
+  public LocalParkFragment() {
     // Required empty public constructor
   }
 
-  public static LocalSearchFragment newInstance(String param1, String param2) {
-    LocalSearchFragment fragment = new LocalSearchFragment();
+  public static LocalParkFragment newInstance(String param1, String param2) {
+    LocalParkFragment fragment = new LocalParkFragment();
     return fragment;
   }
 
@@ -104,7 +102,7 @@ public class LocalSearchFragment extends Fragment implements OnMapReadyCallback 
     if (location != null) {
       deviceLat = location.getLatitude();
       deviceLng = location.getLongitude();
-      mapView.getMapAsync(this);
+      mapView.getMapAsync(this); // onMapyReady() callback will be called in response
     } else {
       Toast.makeText(getActivity(), getString(R.string.device_location_failure), Toast.LENGTH_SHORT).show();
     }

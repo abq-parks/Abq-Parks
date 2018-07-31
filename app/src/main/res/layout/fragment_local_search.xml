@@ -3,7 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="edu.cnm.deepdive.abqparks.fragment.LocalSearchFragment">
+  tools:context="edu.cnm.deepdive.abqparks.fragment.LocalParkFragment">
 
   <com.google.android.gms.maps.MapView
     android:id="@+id/local_map_view"

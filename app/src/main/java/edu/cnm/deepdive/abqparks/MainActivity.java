@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment;
 import edu.cnm.deepdive.abqparks.fragment.HomeFragment;
-import edu.cnm.deepdive.abqparks.fragment.LocalSearchFragment;
+import edu.cnm.deepdive.abqparks.fragment.LocalParkFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
           fragment = new HomeFragment();
           break;
         case R.id.local_search:
-          fragment = new LocalSearchFragment();
+          fragment = new LocalParkFragment();
           break;
         case R.id.amenity_search:
           fragment = new AmenitySearchFragment();
