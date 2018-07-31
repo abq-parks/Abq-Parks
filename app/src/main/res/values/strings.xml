@@ -1,6 +1,6 @@
 <resources>
   <string name="app_name">Abq Parks</string>
   <string name="title_home">Home</string>
-  <string name="title_dashboard">Dashboard</string>
-  <string name="title_notifications">Notifications</string>
+  <string name="local_search">Local</string>
+  <string name="amenity_search">Search</string>
 </resources>

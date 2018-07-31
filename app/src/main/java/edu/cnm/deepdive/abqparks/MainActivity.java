@@ -1,8 +1,9 @@
 package edu.cnm.deepdive.abqparks;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -14,20 +15,33 @@ public class MainActivity extends AppCompatActivity {
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
       = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-      switch (item.getItemId()) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+      displaySelectedScreen(item.getItemId());
+      return true;
+    }
+
+    private void displaySelectedScreen(int itemId) {
+
+      Fragment fragment = null;
+
+      switch (itemId) {
         case R.id.navigation_home:
-          mTextMessage.setText(R.string.title_home);
-          return true;
-        case R.id.navigation_dashboard:
-          mTextMessage.setText(R.string.title_dashboard);
-          return true;
-        case R.id.navigation_notifications:
-          mTextMessage.setText(R.string.title_notifications);
-          return true;
+          fragment = new HomeFragment();
+          break;
+        case R.id.local_search:
+          fragment = new LocalSearchFragment();
+          break;
+        case R.id.amenity_search:
+          fragment = new AmenitySearchFragment();
+          break;
       }
-      return false;
+      if (fragment != null) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_frame, fragment);
+        ft.commit();
+      }
     }
   };
 
