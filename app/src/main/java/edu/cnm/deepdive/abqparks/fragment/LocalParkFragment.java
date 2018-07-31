@@ -89,20 +89,14 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
     reviewButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        showReviewFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.container, new ReviewFragment());
+        ft.commit();
       }
     });
     return view;
   }
 
-  private void showReviewFragment() {
-    Fragment fragment = new ReviewFragment();
-    FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    fragmentTransaction.replace(R.id.container, fragment);
-    fragmentTransaction.addToBackStack(null);
-    fragmentTransaction.commit();
-  }
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION)
