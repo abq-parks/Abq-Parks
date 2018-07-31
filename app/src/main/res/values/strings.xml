@@ -5,4 +5,11 @@
   <string name="amenity_search">Search</string>
   <string name="device_location_failure">Unable to determine device location.</string>
   <string name="location_permission_denial">Cannot locate local parks without location permissions.</string>
+  <string name="basketball">Basketball</string>
+  <string name="tennis">Tennis</string>
+  <string name="play_area">Play Area</string>
+  <string name="soccer">Soccer</string>
+  <string name="softball">Softball</string>
+  <string name="volleyball">Volleyball</string>
+  <string name="reviews_button">Reviews</string>
 </resources>

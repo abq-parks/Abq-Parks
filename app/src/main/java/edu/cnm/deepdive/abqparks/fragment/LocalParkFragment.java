@@ -12,9 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +37,11 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
   private double deviceLng;
   private MapView mapView;
   private GoogleMap map;
+
+  private Button reviewButton;
+  private Button reviewSaveButton;
+  private RecyclerView reviewList;
+  private EditText reviewText;
 
   public LocalParkFragment() {
     // Required empty public constructor
@@ -54,9 +63,22 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_local_search, container, false);
+    View view = inflater.inflate(R.layout.fragment_local_park, container, false);
     mapView = view.findViewById(R.id.local_map_view);
-    mapView.onCreate(savedInstanceState);
+//    mapView.onCreate(savedInstanceState);
+
+    reviewButton = view.findViewById(R.id.review_button);
+    reviewList = view.findViewById(R.id.review_list);
+    reviewText = view.findViewById(R.id.review_text);
+    reviewSaveButton = view.findViewById(R.id.review_save_button);
+    reviewButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        reviewList.setVisibility(View.VISIBLE);
+        reviewText.setVisibility(View.VISIBLE);
+        reviewSaveButton.setVisibility(View.VISIBLE);
+      }
+    });
     return view;
   }
 

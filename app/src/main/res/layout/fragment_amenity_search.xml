@@ -1,68 +1,80 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment"
-  android:orientation="vertical">
+  tools:context="edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment">
 
   <TextView
     android:id="@+id/amenity_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/amenity_search"/>
+    android:text="@string/amenity_search"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"/>
 
   <ToggleButton
     android:id="@+id/basketball_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="basketball"
-    android:textOff="basketball"
-    android:layout_below="@id/amenity_search"/>
+    android:textOn="@string/basketball"
+    android:textOff="@string/basketball"
+    android:layout_below="@id/amenity_search"
+    app:layout_constraintTop_toBottomOf="@id/amenity_search"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@+id/tennis_button"/>
 
   <ToggleButton
     android:id="@+id/tennis_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="tennis"
-    android:textOff="tennis"
-    android:layout_below="@id/amenity_search"
-    android:layout_toEndOf="@id/basketball_button"/>
+    android:textOn="@string/tennis"
+    android:textOff="@string/tennis"
+    app:layout_constraintTop_toBottomOf="@id/amenity_search"
+    app:layout_constraintLeft_toRightOf="@id/basketball_button"
+    app:layout_constraintRight_toLeftOf="@+id/play_area_button"/>
 
   <ToggleButton
     android:id="@+id/play_area_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="play area"
-    android:textOff="play area"
-    android:layout_below="@id/amenity_search"
-    android:layout_toEndOf="@id/tennis_button"/>
+    android:textOn="@string/play_area"
+    android:textOff="@string/play_area"
+    app:layout_constraintTop_toBottomOf="@id/amenity_search"
+    app:layout_constraintLeft_toRightOf="@id/tennis_button"
+    app:layout_constraintRight_toLeftOf="@+id/soccer_button"/>
 
   <ToggleButton
     android:id="@+id/soccer_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="soccer"
-    android:textOff="soccer"
-    android:layout_below="@id/amenity_search"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/play_area_button"/>
+    android:textOn="@string/soccer"
+    android:textOff="@string/soccer"
+    app:layout_constraintTop_toBottomOf="@id/amenity_search"
+    app:layout_constraintLeft_toRightOf="@id/play_area_button"
+    app:layout_constraintRight_toRightOf="parent"/>
 
   <ToggleButton
     android:id="@+id/softball_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="softball"
-    android:textOff="softball"
-    android:layout_below="@id/basketball_button"/>
+    android:textOn="@string/softball"
+    android:textOff="@string/softball"
+    app:layout_constraintTop_toBottomOf="@id/basketball_button"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@+id/volleyball_button"/>
 
   <ToggleButton
     android:id="@+id/volleyball_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="volleyball"
-    android:textOff="volleyball"
-    android:layout_below="@id/tennis_button"
-    android:layout_toEndOf="@id/softball_button"/>
+    android:textOn="@string/softball"
+    android:textOff="@string/softball"
+    app:layout_constraintTop_toBottomOf="@id/tennis_button"
+    app:layout_constraintLeft_toRightOf="@id/softball_button"
+    app:layout_constraintRight_toLeftOf="@id/jogging_button"/>
 
   <ToggleButton
     android:id="@+id/jogging_button"
@@ -70,8 +82,9 @@
     android:layout_height="wrap_content"
     android:textOn="jogging"
     android:textOff="jogging"
-    android:layout_below="@id/play_area_button"
-    android:layout_toEndOf="@id/volleyball_button"/>
+    app:layout_constraintTop_toBottomOf="@id/soccer_button"
+    app:layout_constraintLeft_toRightOf="@+id/volleyball_button"
+    app:layout_constraintRight_toLeftOf="@+id/picnic_button"/>
 
   <ToggleButton
     android:id="@+id/picnic_button"
@@ -80,8 +93,9 @@
     android:textOn="picnic"
     android:textOff="picnic"
     android:layout_below="@id/soccer_button"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/jogging_button"/>
+    app:layout_constraintTop_toBottomOf="@id/soccer_button"
+    app:layout_constraintLeft_toRightOf="@id/jogging_button"
+    app:layout_constraintRight_toRightOf="parent"/>
 
   <ToggleButton
     android:id="@+id/indoor_pool_button"
@@ -89,7 +103,9 @@
     android:layout_height="wrap_content"
     android:textOn="indoor pool"
     android:textOff="indoor pool"
-    android:layout_below="@id/softball_button"/>
+    app:layout_constraintTop_toBottomOf="@id/softball_button"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@+id/outdoor_pool_button"/>
 
   <ToggleButton
     android:id="@+id/outdoor_pool_button"
@@ -97,8 +113,9 @@
     android:layout_height="wrap_content"
     android:textOn="outdoor pool"
     android:textOff="outdoor pool"
-    android:layout_below="@id/volleyball_button"
-    android:layout_toEndOf="@id/indoor_pool_button"/>
+    app:layout_constraintTop_toBottomOf="@id/volleyball_button"
+    app:layout_constraintLeft_toRightOf="@id/indoor_pool_button"
+    app:layout_constraintRight_toLeftOf="@+id/shade_area_button"/>
 
   <ToggleButton
     android:id="@+id/shade_area_button"
@@ -106,30 +123,27 @@
     android:layout_height="wrap_content"
     android:textOn="shade area"
     android:textOff="shade area"
-    android:layout_below="@id/picnic_button"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/outdoor_pool_button"/>
+    app:layout_constraintTop_toBottomOf="@id/picnic_button"
+    app:layout_constraintLeft_toRightOf="@id/outdoor_pool_button"
+    app:layout_constraintRight_toRightOf="parent"/>
 
   <Button
     android:id="@+id/search_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="search"
-    android:layout_below="@id/outdoor_pool_button"
-    android:layout_marginTop="35dp"
-    android:layout_centerHorizontal="true"/>
-  
+    android:layout_marginTop="20dp"
+    android:text="Search"
+    app:layout_constraintTop_toBottomOf="@id/outdoor_pool_button"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"/>
+
   <android.support.v7.widget.RecyclerView
     android:id="@+id/search_result_view"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_below="@id/search_button"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:layout_alignParentBottom="true"/>
+    app:layout_constraintTop_toBottomOf="@id/search_button"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
-
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
