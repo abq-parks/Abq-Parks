@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,8 +28,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import edu.cnm.deepdive.abqparks.R;
-
-public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
+//implements OnMapReadyCallback
+public class LocalParkFragment extends Fragment {
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
@@ -39,9 +41,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
   private GoogleMap map;
 
   private Button reviewButton;
-  private Button reviewSaveButton;
-  private RecyclerView reviewList;
-  private EditText reviewText;
 
   public LocalParkFragment() {
     // Required empty public constructor
@@ -64,24 +63,26 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_local_park, container, false);
-    mapView = view.findViewById(R.id.local_map_view);
+//    mapView = view.findViewById(R.id.local_map_view);
 //    mapView.onCreate(savedInstanceState);
-
     reviewButton = view.findViewById(R.id.review_button);
-    reviewList = view.findViewById(R.id.review_list);
-    reviewText = view.findViewById(R.id.review_text);
-    reviewSaveButton = view.findViewById(R.id.review_save_button);
     reviewButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        reviewList.setVisibility(View.VISIBLE);
-        reviewText.setVisibility(View.VISIBLE);
-        reviewSaveButton.setVisibility(View.VISIBLE);
+        showReviewFragment();
       }
     });
     return view;
   }
 
+  private void showReviewFragment() {
+    Fragment fragment = new ReviewFragment();
+    FragmentManager fragmentManager = getFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.container, fragment);
+    fragmentTransaction.addToBackStack(null);
+    fragmentTransaction.commit();
+  }
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION)
@@ -124,59 +125,59 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
     if (location != null) {
       deviceLat = location.getLatitude();
       deviceLng = location.getLongitude();
-      mapView.getMapAsync(this); // onMapyReady() callback will be called in response
+//      mapView.getMapAsync(this); // onMapyReady() callback will be called in response
     } else {
       Toast.makeText(getActivity(), getString(R.string.device_location_failure), Toast.LENGTH_SHORT).show();
     }
   }
 
-  @Override
-  public void onMapReady(GoogleMap googleMap) {
-    if (googleMap != null) {
-      map = googleMap;
-      updateMap();
-    }
-  }
+//  @Override
+//  public void onMapReady(GoogleMap googleMap) {
+//    if (googleMap != null) {
+//      map = googleMap;
+//      updateMap();
+//    }
+//  }
 
-  // TODO: Add markers for list of parks returned from request to backend.
-  private void updateMap(){
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
-  }
+//  // TODO: Add markers for list of parks returned from request to backend.
+//  private void updateMap(){
+//    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
+//  }
 
   // TODO: save postal code to recover from fragment/activity destruction.
-  @Override
-  public void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-    mapView.onSaveInstanceState(outState);
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    mapView.onResume();
-  }
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    mapView.onStart();
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    mapView.onStart();
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-    mapView.onPause();
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    mapView.onDestroy();
-  }
+//  @Override
+//  public void onSaveInstanceState(Bundle outState) {
+//    super.onSaveInstanceState(outState);
+//    mapView.onSaveInstanceState(outState);
+//  }
+//
+//  @Override
+//  public void onResume() {
+//    super.onResume();
+//    mapView.onResume();
+//  }
+//
+//  @Override
+//  public void onStart() {
+//    super.onStart();
+//    mapView.onStart();
+//  }
+//
+//  @Override
+//  public void onStop() {
+//    super.onStop();
+//    mapView.onStart();
+//  }
+//
+//  @Override
+//  public void onPause() {
+//    super.onPause();
+//    mapView.onPause();
+//  }
+//
+//  @Override
+//  public void onDestroy() {
+//    super.onDestroy();
+//    mapView.onDestroy();
+//  }
 }

@@ -12,4 +12,11 @@
   <string name="softball">Softball</string>
   <string name="volleyball">Volleyball</string>
   <string name="reviews_button">Reviews</string>
+  <string name="jogging">Jogging</string>
+  <string name="picnic">Picnic</string>
+  <string name="indoor_pool">Indoor pool</string>
+  <string name="outdoor_pool">Outdoor Pool</string>
+  <string name="search">Search</string>
+  <string name="shade_area">Shade Area</string>
+  <string name="write_review">Write Review</string>
 </resources>
