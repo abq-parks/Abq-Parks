@@ -6,7 +6,7 @@
   tools:context="edu.cnm.deepdive.abqparks.fragment.ParkDetailFragment">
 
   <com.google.android.gms.maps.MapView
-    android:id="@+id/local_map_view"
+    android:id="@+id/detail_map_view"
     android:layout_width="match_parent"
     android:layout_height="265dp"/>
 
