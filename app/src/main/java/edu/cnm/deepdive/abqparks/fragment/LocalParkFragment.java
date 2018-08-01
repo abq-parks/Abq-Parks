@@ -39,6 +39,8 @@ import okhttp3.OkHttpClient.Builder;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
 
@@ -168,6 +170,12 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
     Gson gson = new GsonBuilder().
         excludeFieldsWithoutExposeAnnotation()
         .create();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://localhost:25052//rest/abq_park/") // TODO: replace with buildconfig or constant
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .client(httpClient.build())
+        .build();
+    parkService = retrofit.create(ParksService.class);
     new ParksAsync().execute();
   }
 
