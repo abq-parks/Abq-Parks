@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.abqparks.R;
@@ -24,11 +30,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ParkDetailFragment extends Fragment {
+public class ParkDetailFragment extends Fragment implements OnMapReadyCallback {
 
   private static final String PARK_ID_KEY = "park_id";
 
   private MapView mapView;
+  private GoogleMap map;
   private Park park;
   private ParksService parkService;
   private long parkId;
@@ -123,6 +130,25 @@ public class ParkDetailFragment extends Fragment {
     parkService = retrofit.create(ParksService.class);
   }
 
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    if (googleMap != null) {
+      map = googleMap;
+      updateMap();
+    }
+  }
+
+  private void updateMap(){
+    map.addMarker(new MarkerOptions().
+        position(new LatLng(park.getLatitude(),
+            park.getLongitude())
+        )
+    );
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+        new LatLng(park.getLatitude(), park.getLongitude()),
+        15.0f));
+  }
+
   private class ParkAsync extends AsyncTask<Void, Void, Park> {
 
     @Override
@@ -136,7 +162,7 @@ public class ParkDetailFragment extends Fragment {
     @Override
     protected void onPostExecute(Park park) {
       ParkDetailFragment.this.park = park;
-      // TODO: getMapAsync
+      mapView.getMapAsync(ParkDetailFragment.this);
     }
 
     @Override
