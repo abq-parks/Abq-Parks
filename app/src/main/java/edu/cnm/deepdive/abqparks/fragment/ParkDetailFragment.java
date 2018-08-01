@@ -33,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ParkDetailFragment extends Fragment implements OnMapReadyCallback {
 
   private static final String PARK_ID_KEY = "park_id";
+  public static final float CAMERA_ZOOM = 15.0f;
 
   private MapView mapView;
   private GoogleMap map;
@@ -146,7 +147,7 @@ public class ParkDetailFragment extends Fragment implements OnMapReadyCallback {
     );
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(
         new LatLng(park.getLatitude(), park.getLongitude()),
-        15.0f));
+        CAMERA_ZOOM));
   }
 
   private class ParkAsync extends AsyncTask<Void, Void, Park> {

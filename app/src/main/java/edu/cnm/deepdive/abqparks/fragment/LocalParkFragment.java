@@ -44,6 +44,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
+  public static final float CAMERA_ZOOM = 15.0F;
 
   private LocationManager locationManager;
   private double deviceLat;
@@ -156,7 +157,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
         );
       }
     }
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), 15));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), CAMERA_ZOOM));
   }
 
   private void setupServices() {
