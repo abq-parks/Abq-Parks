@@ -8,11 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import com.google.android.gms.maps.MapView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.GsonBuildConfig;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.service.ParksService;
@@ -30,6 +29,7 @@ public class ParkDetailFragment extends Fragment {
   private static final String PARK_ID_KEY = "park_id";
 
   private MapView mapView;
+  private Park park;
   private ParksService parkService;
   private long parkId;
 
@@ -50,7 +50,6 @@ public class ParkDetailFragment extends Fragment {
     if (savedInstanceState != null) {
       parkId = savedInstanceState.getLong(PARK_ID_KEY);
     }
-    setupServices();
     super.onCreate(savedInstanceState);
   }
 
@@ -67,7 +66,8 @@ public class ParkDetailFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     if (parkId != 0) {
-
+      setupServices();
+      new ParkAsync().execute();
     }
   }
 
@@ -123,20 +123,36 @@ public class ParkDetailFragment extends Fragment {
     parkService = retrofit.create(ParksService.class);
   }
 
-//  private class ParkAsync extends AsyncTask<Void, Void, Park> {
-//
-//    @Override
-//    protected void onPostExecute(Park park) {
-//      super.onPostExecute(park);
-//    }
-//
-////    @Override
-////    protected Park doInBackground(Void... voids) {
-////      try {
-////
-////      } catch (IOException e){
-////
-////      }
-////    }
-////  }
+  private class ParkAsync extends AsyncTask<Void, Void, Park> {
+
+    @Override
+    protected void onCancelled() {
+      Toast.makeText(getActivity(),
+          getString(R.string.single_park_request_failure),
+          Toast.LENGTH_SHORT).show();
+      super.onCancelled();
+    }
+
+    @Override
+    protected void onPostExecute(Park park) {
+      ParkDetailFragment.this.park = park;
+      // TODO: getMapAsync
+    }
+
+    @Override
+    protected Park doInBackground(Void... voids) {
+      try {
+        Response<Park> response = parkService.getPark(parkId).execute();
+        if (response.isSuccessful() && response.body() != null) {
+          return response.body();
+        } else {
+          cancel(true);
+        }
+      } catch (IOException e){
+        e.printStackTrace();
+        cancel(true);
+      }
+      return null;
+    }
+  }
 }
