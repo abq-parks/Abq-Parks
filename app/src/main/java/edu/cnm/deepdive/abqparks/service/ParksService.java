@@ -18,4 +18,6 @@ public interface ParksService {
   @GET("parks")
   Call<List<Park>> getAllParks();
 
+  @GET("parks/{parkId}")
+  Call<Park> getPark(@Path("parkId") long parkId);
 }

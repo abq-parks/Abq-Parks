@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.abqparks.fragment;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,11 +10,9 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.MapView;
 import edu.cnm.deepdive.abqparks.R;
+import edu.cnm.deepdive.abqparks.model.Park;
+import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass. Use the {@link ParkDetailFragment#newInstance} factory method
- * to create an instance of this fragment.
- */
 public class ParkDetailFragment extends Fragment {
 
   private static final String PARK_ID_KEY = "park_id";
@@ -86,4 +85,16 @@ public class ParkDetailFragment extends Fragment {
     mapView.onDestroy();
   }
 
+//
+//  private class ParkAsync extends AsyncTask<Void, Void, Park> {
+//
+//    @Override
+//    protected void onPostExecute(Park park) {
+//      super.onPostExecute(park);
+//    }
+//
+////    @Override
+////    protected Park doInBackground(Void... voids) {
+////    }
+//  }
 }
