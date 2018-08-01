@@ -1,7 +1,5 @@
 package edu.cnm.deepdive.abqparks.fragment;
 
-
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,14 +24,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 /**
  * A simple {@link Fragment} subclass. Use the {@link AmenitySearchFragment#newInstance} factory
  * method to create an instance of this fragment.
  */
 public class AmenitySearchFragment extends Fragment {
 
-  public static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+
   private Button searchButton;
   private ToggleButton basketballToggle;
   private ToggleButton tennisToggle;
