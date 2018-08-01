@@ -2,6 +2,7 @@ package edu.cnm.deepdive.abqparks.service;
 
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
+import edu.cnm.deepdive.abqparks.model.Review;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,6 +19,7 @@ public interface ParksService {
   @GET("parks")
   Call<List<Park>> getAllParks();
 
-  @GET("parks/{parkId}")
-  Call<Park> getPark(@Path("parkId") long parkId);
+  @GET("reviews")
+  Call<List<Review>> getReviews();
+
 }

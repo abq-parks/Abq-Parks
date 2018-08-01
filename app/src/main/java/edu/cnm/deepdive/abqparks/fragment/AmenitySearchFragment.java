@@ -98,7 +98,7 @@ public class AmenitySearchFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_amenity_search, container, false);
     setupUI(view);
-    new GetAmenitesTask().execute();
+    new GetAmenitiesTask().execute();
     searchButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -213,7 +213,7 @@ public class AmenitySearchFragment extends Fragment {
   }
 
 
-  private class GetAmenitesTask extends AsyncTask<Void, Void, List<Amenity>> {
+  private class GetAmenitiesTask extends AsyncTask<Void, Void, List<Amenity>> {
 
     private Response<List<Amenity>> response;
 

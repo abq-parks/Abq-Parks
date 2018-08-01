@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -38,8 +39,6 @@ import okhttp3.OkHttpClient.Builder;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
 
@@ -83,9 +82,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
     reviewButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.main_frame, new ReviewFragment());
-        ft.commit();
+        DialogFragment fragment = new ReviewDialogFragment();
+        fragment.show(getFragmentManager(), "reviews");
       }
     });
     return view;
