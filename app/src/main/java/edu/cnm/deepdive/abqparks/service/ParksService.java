@@ -22,4 +22,7 @@ public interface ParksService {
   @GET("reviews")
   Call<List<Review>> getReviews();
 
+  @GET("parks/{parkId}")
+  Call<Park> getPark(@Path("parkId") long parkId);
+
 }
