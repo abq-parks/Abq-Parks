@@ -16,22 +16,28 @@ import edu.cnm.deepdive.abqparks.R;
  */
 public class ParkDetailFragment extends Fragment {
 
+  private static final String PARK_ID_KEY = "park_id";
+
   private MapView mapView;
+  private long parkId;
 
   public ParkDetailFragment() {
     // Required empty public constructor
   }
 
-  // TODO: Change params to be ParkId. Set parkId argument.
-  public static ParkDetailFragment newInstance(String param1, String param2) {
+  public static ParkDetailFragment newInstance(Long parkId) {
     ParkDetailFragment fragment = new ParkDetailFragment();
     Bundle args = new Bundle();
+    args.putLong(PARK_ID_KEY, parkId);
     fragment.setArguments(args);
     return fragment;
   }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    if (savedInstanceState != null) {
+      parkId = savedInstanceState.getLong(PARK_ID_KEY);
+    }
     super.onCreate(savedInstanceState);
   }
 
