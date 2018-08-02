@@ -67,9 +67,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private List<Park> parks;
   private Button reviewButton;
   private ParksService parkService;
-  private Button reviewSaveButton;
-  private RecyclerView reviewList;
-  private EditText reviewText;
   private List<Amenity> amenities;
   private ArrayAdapter<Amenity> amenityAdapter;
   private ListView listview;

@@ -6,6 +6,7 @@ import edu.cnm.deepdive.abqparks.model.Review;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ParksService {
@@ -24,5 +25,4 @@ public interface ParksService {
 
   @GET("parks/{parkId}")
   Call<Park> getPark(@Path("parkId") long parkId);
-
 }

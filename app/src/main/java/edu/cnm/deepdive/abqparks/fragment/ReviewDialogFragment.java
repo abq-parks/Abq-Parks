@@ -33,6 +33,9 @@ public class ReviewDialogFragment extends DialogFragment {
   private ReviewAdapter adapter;
   private RecyclerView recyclerView;
   private EditText reviewText;
+  private ParksService parksService;
+  private long parkId;
+
 
   private HashMap<String, Integer> reviews;
 
@@ -63,6 +66,7 @@ public class ReviewDialogFragment extends DialogFragment {
         .setPositiveButton(R.string.review_save_button, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+
 
           }
         })
