@@ -189,12 +189,9 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     loggingInterceptor.setLevel(Level.BODY);
     OkHttpClient.Builder httpClient = new Builder();
     httpClient.addInterceptor(loggingInterceptor);
-    Gson gson = new GsonBuilder().
-        excludeFieldsWithoutExposeAnnotation()
-        .create();
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("http://localhost:25052//rest/abq_park/") // TODO: replace with buildconfig or constant
-        .addConverterFactory(GsonConverterFactory.create(gson))
+        .baseUrl("http://10.0.2.2:25052/rest/abq_park/") // TODO: replace with buildconfig or constant
+        .addConverterFactory(GsonConverterFactory.create(new Gson()))
         .client(httpClient.build())
         .build();
     parkService = retrofit.create(ParksService.class);
@@ -202,41 +199,41 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   }
 
   // TODO: save postal code to recover from fragment/activity destruction.
-//  @Override
-//  public void onSaveInstanceState(Bundle outState) {
-//    super.onSaveInstanceState(outState);
-//    mapView.onSaveInstanceState(outState);
-//  }
-//
-//  @Override
-//  public void onResume() {
-//    super.onResume();
-//    mapView.onResume();
-//  }
-//
-//  @Override
-//  public void onStart() {
-//    super.onStart();
-//    mapView.onStart();
-//  }
-//
-//  @Override
-//  public void onStop() {
-//    super.onStop();
-//    mapView.onStart();
-//  }
-//
-//  @Override
-//  public void onPause() {
-//    super.onPause();
-//    mapView.onPause();
-//  }
-//
-//  @Override
-//  public void onDestroy() {
-//    super.onDestroy();
-//    mapView.onDestroy();
-//  }
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    mapView.onStart();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mapView.onDestroy();
+  }
 
   private class ParksAsync extends AsyncTask<Void, Void, List<Park>> {
 
