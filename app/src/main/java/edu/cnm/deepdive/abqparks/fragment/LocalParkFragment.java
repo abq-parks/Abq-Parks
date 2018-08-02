@@ -120,9 +120,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       Toast.makeText(getActivity(), getString(R.string.location_permission_denial),
           Toast.LENGTH_SHORT)
           .show();
-      deviceLat = ABQ_LAT;
-      deviceLng = ABQ_LNG;
-      setupServices();
+      defaultLocation();
     }
     super.onViewCreated(view, savedInstanceState);
   }
@@ -136,13 +134,21 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       setupServices();
     } else {
       Toast.makeText(getActivity(), getString(R.string.device_location_failure), Toast.LENGTH_SHORT).show();
+      defaultLocation();
     }
+  }
+
+  private void defaultLocation() {
+    deviceLat = ABQ_LAT;
+    deviceLng = ABQ_LNG;
+    setupServices();
   }
 
   @Override
   public void onMapReady(GoogleMap googleMap) {
     if (googleMap != null) {
       map = googleMap;
+      map.setOnMarkerClickListener(LocalParkFragment.this);
       updateMap();
     }
   }
@@ -166,7 +172,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   public boolean onMarkerClick(Marker marker) {
     if (marker.getTag() != null) {
       for (Park park : parks) {
-        if (park.getId() == marker.getTag()) {
+        if (park.getId() == (long)marker.getTag()) {
           amenities = park.getAmenities();
           populateList();
         }
@@ -175,8 +181,11 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     return true;
   }
 
+  // TODO: create custom layout for amenity items
   private void populateList(){
-    
+    amenityAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
+    amenityAdapter.addAll(amenities);
+    listview.setAdapter(amenityAdapter);
   }
 
   private void setupServices() {

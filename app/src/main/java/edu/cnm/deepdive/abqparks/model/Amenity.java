@@ -33,4 +33,9 @@ public class Amenity {
   public void setParks(List<Park> parks) {
     this.parks = parks;
   }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }
