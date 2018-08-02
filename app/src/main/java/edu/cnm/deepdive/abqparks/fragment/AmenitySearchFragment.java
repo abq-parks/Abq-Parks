@@ -115,11 +115,9 @@ public class AmenitySearchFragment extends Fragment {
     checkedAmenities = "";
     if (basketballToggle.isChecked()) {
       checkedAmenities += String.valueOf(amenities.get("FULLBASKETBALLCOURTS") + ",");
-      checkedAmenities += String.valueOf(amenities.get("HALFBASKETBALLCOURTS") + ",");
     }
     if (tennisToggle.isChecked()) {
       checkedAmenities += String.valueOf(amenities.get("LITTENNISCOURTS") + ",");
-      checkedAmenities += String.valueOf(amenities.get("UNLITTENNISCOURTS") + ",");
     }
     if (playAreaToggle.isChecked()) {
       checkedAmenities += String.valueOf(amenities.get("PLAYAREAS") + ",");
@@ -129,7 +127,6 @@ public class AmenitySearchFragment extends Fragment {
     }
     if (softballToggle.isChecked()) {
       checkedAmenities += String.valueOf(amenities.get("LITSOFTBALLFIELDS") + ",");
-      checkedAmenities += String.valueOf(amenities.get("UNLITSOFTBALLFIELDS") + ",");
     }
     if (volleyballToggle.isChecked()) {
       checkedAmenities += String.valueOf(amenities.get("VOLLEYBALLCOURTS") + ",");
