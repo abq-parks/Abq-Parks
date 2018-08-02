@@ -167,6 +167,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     }
   }
 
+
+
   // TODO: consider more efficient lookup than iterating through entire collection
   @Override
   public boolean onMarkerClick(Marker marker) {
