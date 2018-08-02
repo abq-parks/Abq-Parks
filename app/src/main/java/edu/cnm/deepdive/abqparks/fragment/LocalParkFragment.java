@@ -60,6 +60,10 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private List<Park> parks;
   private Button reviewButton;
   private ParksService parkService;
+  private Button reviewSaveButton;
+  private RecyclerView reviewList;
+  private EditText reviewText;
+  private ParksService parkService;
 
   public LocalParkFragment() {
     // Required empty public constructor
@@ -82,8 +86,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_local_park, container, false);
-//    mapView = view.findViewById(R.id.local_map_view);
-//    mapView.onCreate(savedInstanceState);
+    mapView = view.findViewById(R.id.local_map_view);
+    mapView.onCreate(savedInstanceState);
 
     reviewButton = view.findViewById(R.id.review_button);
     reviewButton.setOnClickListener(new OnClickListener() {
