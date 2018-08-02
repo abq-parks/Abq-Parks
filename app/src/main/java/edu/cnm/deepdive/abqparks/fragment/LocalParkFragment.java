@@ -21,8 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.abqparks.R;
+import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.service.ParksService;
 import java.io.IOException;
@@ -67,6 +70,9 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private Button reviewSaveButton;
   private RecyclerView reviewList;
   private EditText reviewText;
+  private List<Amenity> amenities;
+  private ArrayAdapter<Amenity> amenityAdapter;
+  private ListView listview;
 
 
   public LocalParkFragment() {
@@ -91,6 +97,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_local_park, container, false);
     mapView = view.findViewById(R.id.local_map_view);
+    listview = view.findViewById(R.id.amenities_list);
     mapView.onCreate(savedInstanceState);
 
     reviewButton = view.findViewById(R.id.review_button);
@@ -154,16 +161,22 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     }
   }
 
+  // TODO: consider more efficient lookup than iterating through entire collection
   @Override
   public boolean onMarkerClick(Marker marker) {
     if (marker.getTag() != null) {
-      ParkDetailFragment fragment = ParkDetailFragment.newInstance((long)marker.getTag());
-      getActivity().getSupportFragmentManager().beginTransaction()
-          .addToBackStack(null)
-          .replace(R.id.main_frame, fragment)
-          .commit();
+      for (Park park : parks) {
+        if (park.getId() == marker.getTag()) {
+          amenities = park.getAmenities();
+          populateList();
+        }
+      }
     }
     return true;
+  }
+
+  private void populateList(){
+    
   }
 
   private void setupServices() {
