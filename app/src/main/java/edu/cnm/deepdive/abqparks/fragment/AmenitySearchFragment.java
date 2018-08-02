@@ -171,18 +171,26 @@ public class AmenitySearchFragment extends Fragment {
     searchButton = view.findViewById(R.id.search_button);
   }
 
-  private class ParkHolder extends RecyclerView.ViewHolder {
+  private class ParkHolder extends RecyclerView.ViewHolder implements OnClickListener{
 
     private TextView parkText;
+    private Park park;
 
     public ParkHolder(LayoutInflater inflater, ViewGroup parent) {
       super(inflater.inflate(R.layout.park_row, parent, false));
 
+      itemView.setOnClickListener(this);
       parkText = itemView.findViewById(R.id.park_text);
     }
 
     public void bind(Park park) {
       parkText.setText(park.getName());
+      this.park = park;
+    }
+
+    @Override
+    public void onClick(View v) {
+      park.toString();
     }
   }
 
@@ -210,6 +218,8 @@ public class AmenitySearchFragment extends Fragment {
     public int getItemCount() {
       return parkList.size();
     }
+
+
   }
 
 
