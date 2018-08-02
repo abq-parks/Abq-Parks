@@ -70,8 +70,8 @@
     android:id="@+id/volleyball_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textOn="@string/softball"
-    android:textOff="@string/softball"
+    android:textOn="@string/volleyball"
+    android:textOff="@string/volleyball"
     app:layout_constraintTop_toBottomOf="@id/tennis_button"
     app:layout_constraintLeft_toRightOf="@id/softball_button"
     app:layout_constraintRight_toLeftOf="@id/jogging_button"/>
