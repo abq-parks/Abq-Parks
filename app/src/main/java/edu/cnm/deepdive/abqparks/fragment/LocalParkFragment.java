@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -23,9 +24,11 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,7 +45,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
+public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
+    OnMarkerClickListener {
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
@@ -156,10 +160,22 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback {
             new MarkerOptions().position(
                 new LatLng(park.getLatitude(), park.getLongitude())
             )
-        );
+        ).setTag(park.getId());
       }
     }
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), CAMERA_ZOOM));
+  }
+
+  @Override
+  public boolean onMarkerClick(Marker marker) {
+    if (marker.getTag() != null) {
+      ParkDetailFragment fragment = ParkDetailFragment.newInstance((long)marker.getTag());
+      getActivity().getSupportFragmentManager().beginTransaction()
+          .addToBackStack(null)
+          .replace(R.id.main_frame, fragment)
+          .commit();
+    }
+    return true;
   }
 
   private void setupServices() {
