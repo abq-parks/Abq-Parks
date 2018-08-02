@@ -73,6 +73,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private List<Amenity> amenities;
   private ArrayAdapter<Amenity> amenityAdapter;
   private ListView listview;
+  private Park park;
 
 
   public LocalParkFragment() {
@@ -176,6 +177,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       for (Park park : parks) {
         if (park.getId() == (long)marker.getTag()) {
           amenities = park.getAmenities();
+          LocalParkFragment.this.park = park;
           populateList();
         }
       }
