@@ -4,8 +4,11 @@ import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.model.Review;
 import java.util.List;
+import java.util.UUID;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -25,4 +28,8 @@ public interface ParksService {
 
   @GET("parks/{parkId}")
   Call<Park> getPark(@Path("parkId") long parkId);
+
+  @POST("reviews/{args}")
+  @Headers("accept:application/json")
+  Call<Review> createReview(@Path("args")String args, @Body Review review);
 }

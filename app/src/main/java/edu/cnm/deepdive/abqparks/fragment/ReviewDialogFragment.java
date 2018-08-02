@@ -20,6 +20,7 @@ import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Review;
 import edu.cnm.deepdive.abqparks.service.ParksService;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import retrofit2.Response;
@@ -28,14 +29,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReviewDialogFragment extends DialogFragment {
 
-  public static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
 
   private ReviewAdapter adapter;
   private RecyclerView recyclerView;
   private EditText reviewText;
-  private ParksService parksService;
-  private long parkId;
-
 
   private HashMap<String, Integer> reviews;
 
@@ -66,8 +64,9 @@ public class ReviewDialogFragment extends DialogFragment {
         .setPositiveButton(R.string.review_save_button, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-
-
+            Review review = new Review();
+            review.setReview("Parks is super awesome!");
+            new PostReviewTask().execute(review);
           }
         })
         .setNegativeButton(R.string.review_exit_button, new DialogInterface.OnClickListener() {
@@ -84,6 +83,23 @@ public class ReviewDialogFragment extends DialogFragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
+  private class PostReviewTask extends AsyncTask<Review, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Review... reviews) {
+      Retrofit retrofit = new Retrofit.Builder()
+          .baseUrl(BASE_URL)
+          .addConverterFactory(GsonConverterFactory.create(new Gson()))
+          .build();
+      ParksService parksService = retrofit.create(ParksService.class);
+      try {
+        parksService.createReview("1,328", reviews[0]).execute();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return null;
+    }
+  }
   private class GetReviewsTask extends AsyncTask<Void, Void, List<Review>> {
 
     private Response<List<Review>> response;
@@ -153,4 +169,5 @@ public class ReviewDialogFragment extends DialogFragment {
       return reviewList.size();
     }
   }
+
 }
