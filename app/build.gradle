@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+def getServiceProperty(String property) {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream("../../services/google.properties"))
+    return String.format("\"%s\"", properties.getProperty(property))
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "28.0.0"
@@ -10,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "API_KEY", getServiceProperty("apiKey")
     }
     buildTypes {
         release {

@@ -16,11 +16,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -63,7 +65,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private Button reviewSaveButton;
   private RecyclerView reviewList;
   private EditText reviewText;
-  private ParksService parkService;
+
 
   public LocalParkFragment() {
     // Required empty public constructor
