@@ -53,6 +53,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
   public static final float CAMERA_ZOOM = 15.0F;
+  public static final double ABQ_LNG = -106.5282598;
+  public static final double ABQ_LAT = 35.1462006;
 
   private LocationManager locationManager;
   private double deviceLat;
@@ -104,38 +106,18 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
-      requestPermissions();
-    } else {
+    if (ContextCompat.checkSelfPermission(getActivity(),
+        permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
       getLocation();
+    } else {
+      Toast.makeText(getActivity(), getString(R.string.location_permission_denial),
+          Toast.LENGTH_SHORT)
+          .show();
+      deviceLat = ABQ_LAT;
+      deviceLng = ABQ_LNG;
+      setupServices();
     }
     super.onViewCreated(view, savedInstanceState);
-  }
-
-  private void requestPermissions() {
-    // Explanation required
-    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-        permission.ACCESS_FINE_LOCATION)) {
-      // TODO: implement asynchronous permission prompt with explanation
-    } else {
-      ActivityCompat.requestPermissions(getActivity(),
-          new String[]{permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_REQUEST_CODE);
-    }
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
-    switch (requestCode) {
-      case FINE_LOCATION_REQUEST_CODE:
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          getLocation();
-        } else {
-          Toast.makeText(getActivity(), getString(R.string.location_permission_denial),
-              Toast.LENGTH_SHORT).show();
-        }
-    }
   }
 
   private void getLocation() {
@@ -159,6 +141,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   }
 
   private void updateMap(){
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), CAMERA_ZOOM));
     if (parks != null) {
       // Iterate through parks, extract lat/lng, and place marker on map.
       for (Park park : parks) {
@@ -169,7 +152,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
         ).setTag(park.getId());
       }
     }
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(deviceLat, deviceLng), CAMERA_ZOOM));
   }
 
   @Override
