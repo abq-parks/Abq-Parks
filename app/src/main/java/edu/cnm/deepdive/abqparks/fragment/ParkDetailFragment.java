@@ -141,9 +141,8 @@ public class ParkDetailFragment extends Fragment implements OnMapReadyCallback {
   private void updateMap(){
     map.addMarker(new MarkerOptions().
         position(new LatLng(park.getLatitude(),
-            park.getLongitude())
-        )
-    );
+            park.getLongitude()))
+        .title(park.getName()));
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(
         new LatLng(park.getLatitude(), park.getLongitude()),
         CAMERA_ZOOM));
