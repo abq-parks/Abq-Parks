@@ -19,8 +19,8 @@ public interface ParksService {
   @GET("parks")
   Call<List<Park>> getAllParks();
 
-  @GET("reviews")
-  Call<List<Review>> getReviews();
+  @GET("reviews/{parkId}")
+  Call<List<Review>> getReviews(@Path("parkId") long parkId);
 
   @GET("parks/{parkId}")
   Call<Park> getPark(@Path("parkId") long parkId);
