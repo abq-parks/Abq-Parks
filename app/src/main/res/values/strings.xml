@@ -24,4 +24,5 @@
   <string name="review_exit_button">Back</string>
   <string name="park_review_input">Enter park review.</string>
   <string name="single_park_request_failure">Could not retrieve park info.</string>
+  <string name="client_id">97616867376-qqi4obinr2ue6gao58fpikbtr693lnja.apps.googleusercontent.com</string>
 </resources>
