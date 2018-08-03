@@ -8,22 +8,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,7 +29,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
@@ -55,9 +48,9 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
 
   private static final String POSTAL_KEY = "postal_key";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
-  public static final float CAMERA_ZOOM = 15.0F;
-  public static final double ABQ_LNG = -106.5282598;
-  public static final double ABQ_LAT = 35.1462006;
+  private static final float CAMERA_ZOOM = 15.0F;
+  private static final double ABQ_LNG = -106.5282598;
+  private static final double ABQ_LAT = 35.1462006;
 
   private LocationManager locationManager;
   private double deviceLat;
@@ -82,7 +75,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     return fragment;
   }
 
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -106,6 +98,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
         fragment.show(getFragmentManager(), "reviews");
       }
     });
+
     return view;
   }
 
@@ -121,6 +114,24 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       defaultLocation();
     }
     super.onViewCreated(view, savedInstanceState);
+  }
+
+  private void showSearchedPark() {
+    Bundle bundle = this.getArguments();
+    if (bundle != null) {
+      long parkId = bundle.getLong("PARKNAME", -1);
+      if (parkId != -1) {
+        for (Park park : parks) {
+          if (parkId == park.getId()) {
+            amenities = park.getAmenities();
+            populateList();
+            deviceLat = park.getLatitude();
+            deviceLng = park.getLongitude();
+            break;
+          }
+        }
+      }
+    }
   }
 
   private void getLocation() {
@@ -164,8 +175,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       }
     }
   }
-
-
 
   // TODO: consider more efficient lookup than iterating through entire collection
   @Override
@@ -254,6 +263,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       super.onPostExecute(parks);
       if (parks != null) {
         LocalParkFragment.this.parks = parks;
+        showSearchedPark();
         // request GoogleMap object
         LocalParkFragment.this.mapView.getMapAsync(LocalParkFragment.this);
       }

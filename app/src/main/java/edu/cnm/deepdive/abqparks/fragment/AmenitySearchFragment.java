@@ -3,6 +3,7 @@ package edu.cnm.deepdive.abqparks.fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -187,7 +188,13 @@ public class AmenitySearchFragment extends Fragment {
 
     @Override
     public void onClick(View v) {
-      park.toString();
+      Bundle bundle = new Bundle();
+      bundle.putLong("PARKNAME", park.getId());
+      LocalParkFragment localParkFragment = new LocalParkFragment();
+      localParkFragment.setArguments(bundle);
+      FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+      fragmentManager.beginTransaction().replace(R.id.main_frame, localParkFragment)
+          .commit();
     }
   }
 
@@ -215,10 +222,7 @@ public class AmenitySearchFragment extends Fragment {
     public int getItemCount() {
       return parkList.size();
     }
-
-
   }
-
 
   private class GetAmenitiesTask extends AsyncTask<Void, Void, List<Amenity>> {
 
@@ -279,5 +283,4 @@ public class AmenitySearchFragment extends Fragment {
       recyclerView.setAdapter(adapter);
     }
   }
-
 }
