@@ -11,9 +11,7 @@ public class ParksApplication extends Application {
   private static ParksApplication instance;
 
   GoogleSignInClient signInClient;
-  GoogleSignInAccount singInAccount;
-
-
+  GoogleSignInAccount signInAccount;
 
   @Override
   public void onCreate() {
@@ -39,11 +37,11 @@ public class ParksApplication extends Application {
     this.signInClient = signInClient;
   }
 
-  public GoogleSignInAccount getSingInAccount() {
-    return singInAccount;
+  public GoogleSignInAccount getSignInAccount() {
+    return signInAccount;
   }
 
-  public void setSingInAccount(GoogleSignInAccount singInAccount) {
-    this.singInAccount = singInAccount;
+  public void setSignInAccount(GoogleSignInAccount signInAccount) {
+    this.signInAccount = signInAccount;
   }
 }
