@@ -230,15 +230,12 @@ public class AmenitySearchFragment extends Fragment {
           .baseUrl(BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
-
       ParksService client = retrofit.create(ParksService.class);
-
       try {
         response = client.getAmenities().execute();
       } catch (IOException e) {
         // Do nothing for now.
       }
-
       return response.body();
     }
 
