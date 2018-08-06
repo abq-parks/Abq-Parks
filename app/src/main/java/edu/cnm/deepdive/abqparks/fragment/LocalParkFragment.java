@@ -30,6 +30,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import edu.cnm.deepdive.abqparks.R;
+import edu.cnm.deepdive.abqparks.controller.MainActivity;
+import edu.cnm.deepdive.abqparks.controller.SignInActivity;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.service.ParksService;
@@ -193,7 +195,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
 
   // TODO: create custom layout for amenity items
   private void populateList(){
-    amenityAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
+    int id = getResources().getIdentifier("@layout/amenity_item", "layout", getActivity().getPackageName());
+    amenityAdapter = new ArrayAdapter<>(getActivity(), R.layout.amenity_item, R.id.amenity_name);
     amenityAdapter.addAll(amenities);
     listview.setAdapter(amenityAdapter);
   }
