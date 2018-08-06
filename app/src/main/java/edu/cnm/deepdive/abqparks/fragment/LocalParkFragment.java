@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -66,6 +68,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private ArrayAdapter<Amenity> amenityAdapter;
   private ListView listview;
   private Park park;
+  private TextView parkName;
 
 
   public LocalParkFragment() {
@@ -90,6 +93,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     View view = inflater.inflate(R.layout.fragment_local_park, container, false);
     mapView = view.findViewById(R.id.local_map_view);
     listview = view.findViewById(R.id.amenities_list);
+    parkName = view.findViewById(R.id.park_name);
     mapView.onCreate(savedInstanceState);
 
     reviewButton = view.findViewById(R.id.review_button);
@@ -186,6 +190,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
         if (park.getId() == (long)marker.getTag()) {
           amenities = park.getAmenities();
           LocalParkFragment.this.park = park;
+          parkName.setText(park.getName());
           populateList();
         }
       }
@@ -193,7 +198,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     return true;
   }
 
-  // TODO: create custom layout for amenity items
   private void populateList(){
     int id = getResources().getIdentifier("@layout/amenity_item", "layout", getActivity().getPackageName());
     amenityAdapter = new ArrayAdapter<>(getActivity(), R.layout.amenity_item, R.id.amenity_name);
