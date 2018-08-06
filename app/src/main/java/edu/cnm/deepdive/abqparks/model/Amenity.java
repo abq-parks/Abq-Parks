@@ -8,6 +8,8 @@ public class Amenity {
 
   private String name;
 
+  private String displayName;
+
   private List<Park> parks;
 
   public int getId() {
@@ -26,6 +28,14 @@ public class Amenity {
     this.name = name;
   }
 
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
   public List<Park> getParks() {
     return parks;
   }
@@ -36,6 +46,6 @@ public class Amenity {
 
   @Override
   public String toString() {
-    return name;
+    return displayName;
   }
 }
