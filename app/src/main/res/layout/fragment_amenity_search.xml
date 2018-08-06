@@ -4,9 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="56dp"
   tools:context="edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment">
-
 
   <TextView
     android:id="@+id/amenity_search"
