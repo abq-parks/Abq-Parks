@@ -8,6 +8,7 @@
   android:layout_height="match_parent"
   tools:context="edu.cnm.deepdive.abqparks.controller.MainActivity">
 
+
   <FrameLayout
     android:id="@+id/main_frame"
     android:layout_width="match_parent"
@@ -17,6 +18,9 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintBottom_toTopOf="@+id/navigation"/>
 
+  <include layout="@layout/app_bar_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
   <android.support.design.widget.BottomNavigationView
     android:id="@+id/navigation"

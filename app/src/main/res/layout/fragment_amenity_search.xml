@@ -4,7 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:paddingTop="56dp"
   tools:context="edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment">
+
 
   <TextView
     android:id="@+id/amenity_search"
@@ -142,6 +144,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:padding="20dp"
+    android:layoutAnimation="@anim/layout_animation_fall_down"
     app:layout_constraintTop_toBottomOf="@id/search_button"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
