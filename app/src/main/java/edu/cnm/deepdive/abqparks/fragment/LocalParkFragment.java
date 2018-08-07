@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +31,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import edu.cnm.deepdive.abqparks.R;
-import edu.cnm.deepdive.abqparks.controller.MainActivity;
-import edu.cnm.deepdive.abqparks.controller.SignInActivity;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.service.ParksService;
@@ -130,6 +127,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
         for (Park park : parks) {
           if (parkId == park.getId()) {
             amenities = park.getAmenities();
+            LocalParkFragment.this.park = park;
+            parkName.setText(park.getName());
             populateList();
             deviceLat = park.getLatitude();
             deviceLng = park.getLongitude();
