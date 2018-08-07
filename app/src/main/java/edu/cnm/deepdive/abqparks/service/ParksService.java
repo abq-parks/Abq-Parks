@@ -35,6 +35,6 @@ public interface ParksService {
   Call<Review> createReview(@Path("args")String args, @Body Review review);
 
   @POST("users/")
-   Call<Void> createUser(@Body User user);
+   Call<User> createUser(@Body User user);
 
 }
