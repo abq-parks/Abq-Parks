@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.abqparks.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,12 +29,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-  private TextView mTextMessage;
   private GoogleSignInAccount googleAccount;
   ParksService parkService;
 
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     googleAccount = ParksApplication.getInstance().getSignInAccount();
     setupService();
 
-    mTextMessage = (TextView) findViewById(R.id.message);
     BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     navigation.setSelectedItemId(R.id.navigation_home);
@@ -133,21 +133,36 @@ public class MainActivity extends AppCompatActivity {
     return (ParksApplication) getApplication();
   }
 
-  private class UserAsync extends AsyncTask<Void, Void, Void> {
+  private class UserAsync extends AsyncTask<Void, Void, User> {
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected User doInBackground(Void... voids) {
       User user = new User();
       user.setGoogleID(googleAccount.getId());
       user.setFirstName(googleAccount.getGivenName());
       user.setLastName(googleAccount.getFamilyName());
       user.setUserEmail(googleAccount.getEmail());
       try {
-        parkService.createUser(user).execute();
+        Response<User> response = parkService.createUser(user).execute();
+        if (response.isSuccessful() && response.body() != null) {
+          return response.body();
+        }
       } catch (IOException e) {
         cancel(true); // TODO: Implement onCanceled
       }
       return null;
+    }
+
+    @Override
+    protected void onPostExecute(User user) {
+      if (user != null) {
+        Editor editor;
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getApplicationContext().getSharedPreferences("ABQPARKS", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putLong("USERID", user.getId());
+        editor.commit();
+      }
     }
   }
 
