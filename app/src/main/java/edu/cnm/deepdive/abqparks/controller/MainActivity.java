@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.abqparks.controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,17 +12,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 import edu.cnm.deepdive.abqparks.ParksApplication;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment;
 import edu.cnm.deepdive.abqparks.fragment.HomeFragment;
 import edu.cnm.deepdive.abqparks.fragment.LocalParkFragment;
+import edu.cnm.deepdive.abqparks.model.User;
+import edu.cnm.deepdive.abqparks.service.ParksService;
+import java.io.IOException;
+import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
   private TextView mTextMessage;
+  private GoogleSignInAccount googleAccount;
+  ParksService parkService;
 
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
       = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displaySelectedScreen(int itemId) {
-
       Fragment fragment = null;
-
       switch (itemId) {
         case R.id.navigation_home:
           fragment = new HomeFragment();
@@ -63,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+    googleAccount = ParksApplication.getInstance().getSignInAccount();
+    setupService();
 
     mTextMessage = (TextView) findViewById(R.id.message);
     BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -101,9 +115,40 @@ public class MainActivity extends AppCompatActivity {
         });
   }
 
+  private void setupService() {
+    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(Level.BODY);
+    OkHttpClient.Builder httpClient = new Builder();
+    httpClient.addInterceptor(loggingInterceptor);
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://10.0.2.2:25052/rest/abq_park/") // TODO: replace with buildconfig or constant
+        .addConverterFactory(GsonConverterFactory.create(new Gson()))
+        .client(httpClient.build())
+        .build();
+    parkService = retrofit.create(ParksService.class);
+    new UserAsync().execute();
+  }
+
   private ParksApplication getParksApplication() {
     return (ParksApplication) getApplication();
   }
 
+  private class UserAsync extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+      User user = new User();
+      user.setGoogleID(googleAccount.getId());
+      user.setFirstName(googleAccount.getGivenName());
+      user.setLastName(googleAccount.getFamilyName());
+      user.setUserEmail(googleAccount.getEmail());
+      try {
+        parkService.createUser(user).execute();
+      } catch (IOException e) {
+        cancel(true); // TODO: Implement onCanceled
+      }
+      return null;
+    }
+  }
 
 }

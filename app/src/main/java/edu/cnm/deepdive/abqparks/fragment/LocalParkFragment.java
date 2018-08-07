@@ -66,6 +66,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private ListView listview;
   private Park park;
   private TextView parkName;
+  private TextView parkAddress;
 
 
   public LocalParkFragment() {
@@ -190,6 +191,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
           amenities = park.getAmenities();
           LocalParkFragment.this.park = park;
           parkName.setText(park.getName());
+
           populateList();
         }
       }

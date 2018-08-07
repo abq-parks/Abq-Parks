@@ -3,6 +3,7 @@ package edu.cnm.deepdive.abqparks.service;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
 import edu.cnm.deepdive.abqparks.model.Review;
+import edu.cnm.deepdive.abqparks.model.User;
 import java.util.List;
 import java.util.UUID;
 import retrofit2.Call;
@@ -32,4 +33,8 @@ public interface ParksService {
   @POST("reviews/{args}")
   @Headers("accept:application/json")
   Call<Review> createReview(@Path("args")String args, @Body Review review);
+
+  @POST("users/")
+   Call<Void> createUser(@Body User user);
+
 }
