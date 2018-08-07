@@ -14,7 +14,7 @@ enjoy more of their favorite activity.
 Click [here] for installation instructions.
 
 ### Using the App
-Click [here] for basic utilization instructions.
+Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instructions.md) for basic utilization instructions.
 
 ## Tests
 
