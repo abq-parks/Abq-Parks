@@ -1,9 +1,9 @@
 # Abq Parks
-Abq Parks is an application created to facilitate the location of parks with specific amenities in Albuquerque, New Mexico. The aim is to 
-reduce the amount of time needed for users to find amenities (basketball courts, jogging areas, pools, etc.), so that they may
+Abq Parks is an application created to facilitate the location of parks with specific amenities in Albuquerque, New Mexico. The aim is to reduce the amount of time needed for users to find amenities (basketball courts, jogging areas, pools, etc.), so that they may
 enjoy more of their favorite activity. 
 
 ## Current State
+
 
 ## Getting Started
 ### Prerequisites
@@ -32,3 +32,9 @@ Click [here] for basic utilization instructions.
 
 ## License
 This project is licensed under the Apache License 2.0. [more](https://github.com/abq-parks/Abq-Parks/blob/master/LICENSE)
+
+## Team
+* Jason Rafferty
+* Mike Lacey
+* August Howard
+* Ivan Espinoza
