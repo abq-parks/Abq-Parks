@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.google.gson.Gson;
 import edu.cnm.deepdive.abqparks.R;
@@ -26,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * A simple {@link Fragment} subclass. Use the {@link AmenitySearchFragment#newInstance} factory
+ * A simple {@link Fragment} subclass. Use the {@link AmenitySearchFragment} factory
  * method to create an instance of this fragment.
  */
 public class AmenitySearchFragment extends Fragment {
@@ -49,48 +50,10 @@ public class AmenitySearchFragment extends Fragment {
   private RecyclerView recyclerView;
   private ParkAdapter adapter;
   private String checkedAmenities;
-
   private HashMap<String, Integer> amenities;
-
-  // TODO: Rename parameter arguments, choose names that match
-  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-
-  // TODO: Rename and change types of parameters
-  private String mParam1;
-  private String mParam2;
-
 
   public AmenitySearchFragment() {
     // Required empty public constructor
-  }
-
-  /**
-   * Use this factory method to create a new instance of this fragment using the provided
-   * parameters.
-   *
-   * @param param1 Parameter 1.
-   * @param param2 Parameter 2.
-   * @return A new instance of fragment AmenitySearchFragment.
-   */
-  // TODO: Rename and change types and number of parameters
-  public static AmenitySearchFragment newInstance(String param1, String param2) {
-    AmenitySearchFragment fragment = new AmenitySearchFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
-  }
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
   }
 
   @Override
@@ -114,41 +77,43 @@ public class AmenitySearchFragment extends Fragment {
 
   private void checkToggled() {
     checkedAmenities = "";
-    if (basketballToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("FULLBASKETBALLCOURTS") + ",");
-    }
-    if (tennisToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("LITTENNISCOURTS") + ",");
-    }
-    if (playAreaToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("PLAYAREAS") + ",");
-    }
-    if (soccerToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("SOCCERFIELDS") + ",");
-    }
-    if (softballToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("LITSOFTBALLFIELDS") + ",");
-    }
-    if (volleyballToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("VOLLEYBALLCOURTS") + ",");
-    }
-    if (joggingToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("JOGGINGPATHS") + ",");
-    }
-    if (picnicToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("PICNICTABLES") + ",");
-    }
-    if (indoorPoolToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("INDOORPOOLS") + ",");
-    }
-    if (outdoorPoolToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("OUTDOORPOOLS") + ",");
-    }
-    if (shadeAreaToggle.isChecked()) {
-      checkedAmenities += String.valueOf(amenities.get("SHADESTRUCTURES") + ",");
-    }
-    if (checkedAmenities.length() > 1) {
-      checkedAmenities = checkedAmenities.substring(0, checkedAmenities.length() - 1);
+    if (amenities != null) {
+      if (basketballToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("FULLBASKETBALLCOURTS") + ",");
+      }
+      if (tennisToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("LITTENNISCOURTS") + ",");
+      }
+      if (playAreaToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("PLAYAREAS") + ",");
+      }
+      if (soccerToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("SOCCERFIELDS") + ",");
+      }
+      if (softballToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("LITSOFTBALLFIELDS") + ",");
+      }
+      if (volleyballToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("VOLLEYBALLCOURTS") + ",");
+      }
+      if (joggingToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("JOGGINGPATHS") + ",");
+      }
+      if (picnicToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("PICNICTABLES") + ",");
+      }
+      if (indoorPoolToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("INDOORPOOLS") + ",");
+      }
+      if (outdoorPoolToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("OUTDOORPOOLS") + ",");
+      }
+      if (shadeAreaToggle.isChecked()) {
+        checkedAmenities += String.valueOf(amenities.get("SHADESTRUCTURES") + ",");
+      }
+      if (checkedAmenities.length() > 1) {
+        checkedAmenities = checkedAmenities.substring(0, checkedAmenities.length() - 1);
+      }
     }
   }
 
@@ -229,6 +194,13 @@ public class AmenitySearchFragment extends Fragment {
     private Response<List<Amenity>> response;
 
     @Override
+    protected void onCancelled() {
+      super.onCancelled();
+      Toast.makeText(getActivity(), getString(R.string.amenities_request_failure), Toast.LENGTH_SHORT)
+          .show();
+    }
+
+    @Override
     protected List<Amenity> doInBackground(Void... voids) {
       Retrofit retrofit = new Retrofit.Builder()
           .baseUrl(BASE_URL)
@@ -237,10 +209,15 @@ public class AmenitySearchFragment extends Fragment {
       ParksService client = retrofit.create(ParksService.class);
       try {
         response = client.getAmenities().execute();
+        if (response.isSuccessful() && response.body() != null) {
+          return response.body();
+        } else {
+          cancel(true);
+        }
       } catch (IOException e) {
-        // Do nothing for now.
+        cancel(true);
       }
-      return response.body();
+      return null;
     }
 
     @Override
@@ -257,6 +234,13 @@ public class AmenitySearchFragment extends Fragment {
     private Response<List<Park>> response;
 
     @Override
+    protected void onCancelled() {
+      super.onCancelled();
+      Toast.makeText(getActivity(), getString(R.string.parks_request_failure), Toast.LENGTH_SHORT)
+          .show();
+    }
+
+    @Override
     protected List<Park> doInBackground(Void... voids) {
       Retrofit retrofit = new Retrofit.Builder()
           .baseUrl(BASE_URL)
@@ -267,17 +251,23 @@ public class AmenitySearchFragment extends Fragment {
 
       try {
         response = client.getParks(checkedAmenities).execute();
+        if (response.isSuccessful() && response.body() != null) {
+          return response.body();
+        } else {
+          cancel(true);
+        }
       } catch (IOException e) {
-        e.printStackTrace();
+        cancel(true);
       }
-
-      return response.body();
+      return null;
     }
 
     @Override
     protected void onPostExecute(List<Park> parks) {
-      adapter = new ParkAdapter(parks);
-      recyclerView.setAdapter(adapter);
+      if (parks != null) {
+        adapter = new ParkAdapter(parks);
+        recyclerView.setAdapter(adapter);
+      }
     }
   }
 }

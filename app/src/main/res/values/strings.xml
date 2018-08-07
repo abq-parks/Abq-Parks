@@ -24,6 +24,7 @@
   <string name="review_exit_button">Back</string>
   <string name="park_review_input">Enter park review.</string>
   <string name="single_park_request_failure">Could not retrieve park info.</string>
+  <string name="amenities_request_failure">Could not retrieve amenities.</string>
   <string name="action_logout">Log Out</string>
   <string name="client_id">
 97616867376-1pnaqk0gpl075mkva0enq7enhjvq459j.apps.googleusercontent.com
