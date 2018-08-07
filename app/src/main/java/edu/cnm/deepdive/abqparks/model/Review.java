@@ -44,4 +44,9 @@ public class Review {
   public void setParks(List<Park> parks) {
     this.parks = parks;
   }
+
+  @Override
+  public String toString() {
+    return review;
+  }
 }
