@@ -143,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
       user.setLastName(googleAccount.getFamilyName());
       user.setUserEmail(googleAccount.getEmail());
       try {
-        Response<User> response = parkService.createUser(user).execute();
+        String token = ParksApplication.getInstance().getSignInAccount().getIdToken();
+        parkService.createUser(user, getString(R.string.oauth2_header_format, token)).execute();
+        Response<User> response = parkService.createUser(user, token).execute();
         if (response.isSuccessful() && response.body() != null) {
           return response.body();
         }

@@ -29,4 +29,5 @@
   <string name="client_id">
 97616867376-1pnaqk0gpl075mkva0enq7enhjvq459j.apps.googleusercontent.com
 </string>
+  <string name="oauth2_header_format">Bearer %1$s</string>
 </resources>
