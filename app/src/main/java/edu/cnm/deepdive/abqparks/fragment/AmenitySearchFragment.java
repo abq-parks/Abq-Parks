@@ -32,6 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class AmenitySearchFragment extends Fragment {
 
+  private static final String PARK_ID_KEY = "PARKID";
+
   private Button searchButton;
   private ToggleButton basketballToggle;
   private ToggleButton tennisToggle;
@@ -152,7 +154,7 @@ public class AmenitySearchFragment extends Fragment {
     @Override
     public void onClick(View v) {
       Bundle bundle = new Bundle();
-      bundle.putLong("PARKID", park.getId());
+      bundle.putLong(PARK_ID_KEY, park.getId());
       LocalParkFragment localParkFragment = new LocalParkFragment();
       localParkFragment.setArguments(bundle);
       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
