@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.abqparks.fragment;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
