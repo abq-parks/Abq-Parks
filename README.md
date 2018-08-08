@@ -11,7 +11,7 @@ enjoy more of their favorite activity.
 * Android Build Tools v28.0.0
 
 ### Installing
-Click [here] for installation instructions.
+Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/installation.md) for installation instructions.
 
 ### Using the App
 Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instructions.md) for basic utilization instructions.
