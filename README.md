@@ -24,12 +24,10 @@ Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instruction
 * [GSON](https://sites.google.com/site/gson/)
 * [Google Maps](https://developers.google.com/maps/documentation/)
 * [Google Sign-In](https://developers.google.com/identity/sign-in/android/)
-* [City of Albuquerque Open Data](https://www.cabq.gov/abq-data)
-* [Spring Boot](https://spring.io/projects/spring-boot)
+
 
 ## Links to Additional Documents
 * [Wireframe](https://github.com/abq-parks/Abq-Parks/blob/master/docs/Wireframes.pdf)
-* [ERD](https://github.com/abq-parks/services/blob/master/docs/Parks%20ERD.pdf)
 
 ## License
 This project is licensed under the Apache License 2.0. [more](https://github.com/abq-parks/Abq-Parks/blob/master/LICENSE)
