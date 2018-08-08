@@ -1,7 +1,10 @@
 package edu.cnm.deepdive.abqparks.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,13 +32,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReviewDialogFragment extends DialogFragment {
 
+  private long parkId;
+  private long userId;
+  private String reviewId;
+
   private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
-
-  private ReviewAdapter adapter;
-  private RecyclerView recyclerView;
-  private EditText reviewText;
-
-  private HashMap<String, Integer> reviews;
 
   public ReviewDialogFragment() {
     //Required empty public constructor
@@ -49,6 +50,20 @@ public class ReviewDialogFragment extends DialogFragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Bundle bundle = this.getArguments();
+    if (bundle != null) {
+      parkId = bundle.getLong("PARKID", -1);
+      if (parkId == -1) {
+        // TODO Set to 1 for testing. Change!!
+        parkId = 1;
+      }
+    }
+    SharedPreferences sharedPreferences;
+    sharedPreferences = getContext().getApplicationContext().getSharedPreferences("ABQPARKS", MODE_PRIVATE);
+    userId = sharedPreferences.getLong("USERID", -1l);
+    if (userId == -1l) {
+
+    }
   }
 
   @NonNull
@@ -64,8 +79,9 @@ public class ReviewDialogFragment extends DialogFragment {
         .setPositiveButton(R.string.review_save_button, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+            EditText reviewText = getDialog().findViewById(R.id.review_text);
             Review review = new Review();
-            review.setReview("Parks is super awesome!");
+            review.setReview(reviewText.getText().toString());
             new PostReviewTask().execute(review);
           }
         })
@@ -87,86 +103,22 @@ public class ReviewDialogFragment extends DialogFragment {
 
     @Override
     protected Void doInBackground(Review... reviews) {
+      reviewId = String.valueOf(parkId) + "," + String.valueOf(userId);
       Retrofit retrofit = new Retrofit.Builder()
           .baseUrl(BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
       ParksService parksService = retrofit.create(ParksService.class);
       try {
-        parksService.createReview("1,328", reviews[0]).execute();
+        Response<Review> response = parksService.createReview(reviewId, reviews[0]).execute();
+        if (response.isSuccessful() && response != null) {
+          // TODO Send response.
+        }
       } catch (IOException e) {
+        // TODO Nothing.
         e.printStackTrace();
       }
       return null;
-    }
-  }
-  private class GetReviewsTask extends AsyncTask<Void, Void, List<Review>> {
-
-    private Response<List<Review>> response;
-
-    @Override
-    protected List<Review> doInBackground(Void... voids) {
-      Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BASE_URL)
-          .addConverterFactory(GsonConverterFactory.create(new Gson()))
-          .build();
-
-      ParksService client = retrofit.create(ParksService.class);
-
-      try {
-        response = client.getReviews(1).execute();
-      } catch (IOException e) {
-        // Do nothing for now.
-      }
-
-      return response.body();
-    }
-
-    @Override
-    protected void onPostExecute(List<Review> reviews) {
-      adapter = new ReviewAdapter(reviews);
-      recyclerView.setAdapter(adapter);
-    }
-  }
-
-  private class ReviewHolder extends RecyclerView.ViewHolder {
-
-    private TextView reviewText;
-
-    public ReviewHolder(LayoutInflater inflater, ViewGroup parent) {
-      super(inflater.inflate(R.layout.review_row, parent, false));
-
-      reviewText = itemView.findViewById(R.id.review_list_text);
-    }
-
-    public void bind(Review review) {
-      reviewText.setText(review.getReview());
-    }
-  }
-
-  private class ReviewAdapter extends RecyclerView.Adapter<ReviewHolder> {
-
-    private List<Review> reviewList;
-
-    public ReviewAdapter(List<Review> review) {
-      reviewList = review;
-    }
-
-    @Override
-    public ReviewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-      LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-      return new ReviewHolder(layoutInflater, viewGroup);
-    }
-
-    @Override
-    public void onBindViewHolder(ReviewHolder reviewHolder, int postion) {
-      Review review = reviewList.get(postion);
-      reviewHolder.bind(review);
-    }
-
-    @Override
-    public int getItemCount() {
-      return reviewList.size();
     }
   }
 

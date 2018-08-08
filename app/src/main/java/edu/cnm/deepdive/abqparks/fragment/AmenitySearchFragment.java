@@ -154,7 +154,7 @@ public class AmenitySearchFragment extends Fragment {
     @Override
     public void onClick(View v) {
       Bundle bundle = new Bundle();
-      bundle.putLong("PARKNAME", park.getId());
+      bundle.putLong("PARKID", park.getId());
       LocalParkFragment localParkFragment = new LocalParkFragment();
       localParkFragment.setArguments(bundle);
       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

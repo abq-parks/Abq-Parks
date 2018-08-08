@@ -9,8 +9,8 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,8 +98,18 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     reviewButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        DialogFragment fragment = new ReviewDialogFragment();
-        fragment.show(getFragmentManager(), "reviews");
+        if (park != null) {
+          Bundle bundle = new Bundle();
+          bundle.putLong("PARKID", park.getId());
+          bundle.putString("PARKNAME", park.getName());
+          ReviewsFragment reviewsFragment = new ReviewsFragment();
+          reviewsFragment.setArguments(bundle);
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          fragmentManager.beginTransaction().replace(R.id.main_frame, reviewsFragment)
+              .commit();
+        } else {
+          Toast.makeText(getContext(), "Please select park.", Toast.LENGTH_SHORT).show();
+        }
       }
     });
 
@@ -123,7 +133,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private void showSearchedPark() {
     Bundle bundle = this.getArguments();
     if (bundle != null) {
-      long parkId = bundle.getLong("PARKNAME", -1);
+      long parkId = bundle.getLong("PARKID", -1);
       if (parkId != -1) {
         for (Park park : parks) {
           if (parkId == park.getId()) {
