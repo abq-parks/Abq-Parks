@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
+import edu.cnm.deepdive.abqparks.BuildConfig;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Review;
 import edu.cnm.deepdive.abqparks.service.ParksService;
@@ -29,9 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ReviewsFragment extends Fragment {
 
-  public static final String PARK_ID_KEY = "PARKID";
-  public static final String PARK_NAME_KEY = "PARKNAME";
-  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+  private static final String PARK_ID_KEY = "PARKID";
+  private static final String PARK_NAME_KEY = "PARKNAME";
 
   private ListView reviewsList;
   private Button postReviewButton;
@@ -45,7 +45,6 @@ public class ReviewsFragment extends Fragment {
   public ReviewsFragment() {
     // Required empty public constructor
   }
-
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,7 +102,7 @@ public class ReviewsFragment extends Fragment {
     @Override
     protected List<Review> doInBackground(Void... voids) {
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BASE_URL)
+          .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
 

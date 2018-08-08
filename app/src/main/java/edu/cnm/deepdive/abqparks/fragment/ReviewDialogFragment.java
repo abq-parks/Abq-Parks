@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import com.google.gson.Gson;
+import edu.cnm.deepdive.abqparks.BuildConfig;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Review;
 import edu.cnm.deepdive.abqparks.service.ParksService;
@@ -28,8 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ReviewDialogFragment extends DialogFragment {
 
-  public static final String PARK_ID_KEY = "PARKID";
-  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+  private static final String PARK_ID_KEY = "PARKID";
 
   private long parkId;
   private long userId;
@@ -106,7 +106,7 @@ public class ReviewDialogFragment extends DialogFragment {
     protected Void doInBackground(Review... reviews) {
       reviewId = String.valueOf(parkId) + "," + String.valueOf(userId);
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BASE_URL)
+          .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
       ParksService parksService = retrofit.create(ParksService.class);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.google.gson.Gson;
+import edu.cnm.deepdive.abqparks.BuildConfig;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
@@ -30,8 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Queries back end for Park objects with amenities matching those selected by the user.
  */
 public class AmenitySearchFragment extends Fragment {
-
-  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
 
   private Button searchButton;
   private ToggleButton basketballToggle;
@@ -202,7 +201,7 @@ public class AmenitySearchFragment extends Fragment {
     @Override
     protected List<Amenity> doInBackground(Void... voids) {
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BASE_URL)
+          .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
       ParksService client = retrofit.create(ParksService.class);
@@ -242,7 +241,7 @@ public class AmenitySearchFragment extends Fragment {
     @Override
     protected List<Park> doInBackground(Void... voids) {
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BASE_URL)
+          .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(new Gson()))
           .build();
 

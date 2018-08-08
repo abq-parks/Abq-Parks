@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import edu.cnm.deepdive.abqparks.BuildConfig;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Amenity;
 import edu.cnm.deepdive.abqparks.model.Park;
@@ -53,7 +54,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private static final float CAMERA_ZOOM = 15.0F;
   private static final double ABQ_LNG = -106.5282598;
   private static final double ABQ_LAT = 35.1462006;
-  public static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
+  private static final String PARK_ID_KEY = "PARKID";
+  private static final String PARK_NAME_KEY = "PARKNAME";
 
   private LocationManager locationManager;
   private double deviceLat;
@@ -68,7 +70,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private ListView listview;
   private Park park;
   private TextView parkName;
-
 
   public LocalParkFragment() {
     // Required empty public constructor
@@ -105,8 +106,8 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
       public void onClick(View v) {
         if (park != null) {
           Bundle bundle = new Bundle();
-          bundle.putLong("PARKID", park.getId());
-          bundle.putString("PARKNAME", park.getName());
+          bundle.putLong(PARK_ID_KEY, park.getId());
+          bundle.putString(PARK_NAME_KEY, park.getName());
           ReviewsFragment reviewsFragment = new ReviewsFragment();
           reviewsFragment.setArguments(bundle);
           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -138,7 +139,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private void showSearchedPark() {
     Bundle bundle = this.getArguments();
     if (bundle != null) {
-      long parkId = bundle.getLong("PARKID", -1);
+      long parkId = bundle.getLong(PARK_ID_KEY, -1);
       if (parkId != -1) {
         for (Park park : parks) {
           if (parkId == park.getId()) {
@@ -226,7 +227,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     OkHttpClient.Builder httpClient = new Builder();
     httpClient.addInterceptor(loggingInterceptor);
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(new Gson()))
         .client(httpClient.build())
         .build();

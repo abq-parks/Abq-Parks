@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+import edu.cnm.deepdive.abqparks.BuildConfig;
 import edu.cnm.deepdive.abqparks.ParksApplication;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.fragment.AmenitySearchFragment;
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient.Builder httpClient = new Builder();
     httpClient.addInterceptor(loggingInterceptor);
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:25052/rest/abq_park/") // TODO: replace with buildconfig or constant
+        .baseUrl(BuildConfig.BASE_URL) // TODO: replace with buildconfig or constant
         .addConverterFactory(GsonConverterFactory.create(new Gson()))
         .client(httpClient.build())
         .build();
