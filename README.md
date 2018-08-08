@@ -15,8 +15,10 @@ Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/installatio
 
 ### Using the App
 Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instructions.md) for basic utilization instructions.
+(Abq Parks Service must be running for app to work. [more](https://github.com/abq-parks/services)
 
 ## Tests
+* Emulator: Nexus 5X (Android 7.0, API 24)
 
 ## Built With
 * [Retrofit](http://square.github.io/retrofit/)
