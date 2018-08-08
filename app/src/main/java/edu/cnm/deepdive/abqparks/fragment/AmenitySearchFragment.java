@@ -27,8 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * A simple {@link Fragment} subclass. Use the {@link AmenitySearchFragment} factory
- * method to create an instance of this fragment.
+ * Queries back end for Park objects with amenities matching those selected by the user.
  */
 public class AmenitySearchFragment extends Fragment {
 

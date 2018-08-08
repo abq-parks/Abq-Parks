@@ -33,6 +33,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Controller for all fragments handling user interface components.
+ */
 public class MainActivity extends AppCompatActivity {
 
   private GoogleSignInAccount googleAccount;

@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.Task;
 import edu.cnm.deepdive.abqparks.ParksApplication;
 import edu.cnm.deepdive.abqparks.R;
 
+/**
+ * Launcher class for ABQ Parks app.
+ * User is prompted to sign in with Google account before being granted access to the rest of the
+ * application.
+ */
 public class SignInActivity extends AppCompatActivity {
 
   private static final int REQUEST_CODE = 1;
