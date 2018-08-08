@@ -15,24 +15,24 @@ import edu.cnm.deepdive.abqparks.R;
 
 
 /**
- * A simple {@link Fragment} subclass. Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Landing fragment presented to user after sign in.
  */
 public class HomeFragment extends Fragment {
 
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
 
   public HomeFragment() {
     // Required empty public constructor
   }
 
-  public static HomeFragment newInstance(String param1, String param2) {
+  /**
+   * Factory method for creating new HomeFragment instances.
+   * @return
+   */
+  public static HomeFragment newInstance() {
     HomeFragment fragment = new HomeFragment();
     return fragment;
   }
-
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,

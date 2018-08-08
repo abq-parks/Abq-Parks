@@ -11,37 +11,38 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import com.google.gson.Gson;
 import edu.cnm.deepdive.abqparks.R;
 import edu.cnm.deepdive.abqparks.model.Review;
 import edu.cnm.deepdive.abqparks.service.ParksService;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Allows users to post park reviews.
+ */
 public class ReviewDialogFragment extends DialogFragment {
+
+  public static final String PARK_ID_KEY = "PARKID";
+  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
 
   private long parkId;
   private long userId;
   private String reviewId;
 
-  private static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
-
   public ReviewDialogFragment() {
     //Required empty public constructor
   }
 
+  /**
+   * Factory method for creating new ReviewDialogFragment instances.
+   * @return
+   */
   public static ReviewDialogFragment reviewFragment() {
     ReviewDialogFragment fragment = new ReviewDialogFragment();
     return fragment;
@@ -52,7 +53,7 @@ public class ReviewDialogFragment extends DialogFragment {
     super.onCreate(savedInstanceState);
     Bundle bundle = this.getArguments();
     if (bundle != null) {
-      parkId = bundle.getLong("PARKID", -1);
+      parkId = bundle.getLong(PARK_ID_KEY, -1);
       if (parkId == -1) {
         // TODO Set to 1 for testing. Change!!
         parkId = 1;

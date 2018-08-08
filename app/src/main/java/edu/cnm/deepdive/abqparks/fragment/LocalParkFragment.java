@@ -44,14 +44,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ *  Displays parks nearby user in embedded Google MapView.
+ */
 public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     OnMarkerClickListener {
 
-  private static final String POSTAL_KEY = "postal_key";
-  private static final int FINE_LOCATION_REQUEST_CODE = 1;
   private static final float CAMERA_ZOOM = 15.0F;
   private static final double ABQ_LNG = -106.5282598;
   private static final double ABQ_LAT = 35.1462006;
+  public static final String BASE_URL = "http://10.0.2.2:25052/rest/abq_park/";
 
   private LocationManager locationManager;
   private double deviceLat;
@@ -66,13 +68,16 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private ListView listview;
   private Park park;
   private TextView parkName;
-  private TextView parkAddress;
 
 
   public LocalParkFragment() {
     // Required empty public constructor
   }
 
+  /**
+   * Factory method for creating new LocalParkFragment instances.
+   * @return
+   */
   public static LocalParkFragment newInstance(String param1, String param2) {
     LocalParkFragment fragment = new LocalParkFragment();
     return fragment;
@@ -222,7 +227,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     OkHttpClient.Builder httpClient = new Builder();
     httpClient.addInterceptor(loggingInterceptor);
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:25052/rest/abq_park/") // TODO: replace with buildconfig or constant
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(new Gson()))
         .client(httpClient.build())
         .build();
@@ -230,7 +235,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
     new ParksAsync().execute();
   }
 
-  // TODO: save postal code to recover from fragment/activity destruction.
   @Override
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);

@@ -77,7 +77,7 @@ public class DynamicButtonsFragment extends Fragment {
     protected void onPostExecute(List<Amenity> amenities) {
       int row = 1;
       amenityList = amenities;
-      LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.button_layout);
+      LinearLayout linearLayout = view.findViewById(R.id.button_layout);
       LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
       LinearLayout newLine = null;
       for (Amenity amenity : amenities) {
