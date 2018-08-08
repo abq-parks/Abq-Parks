@@ -191,7 +191,7 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
         map.addMarker(
             new MarkerOptions().position(
                 new LatLng(park.getLatitude(), park.getLongitude())
-            )
+            ).title(park.getName())
         ).setTag(park.getId());
       }
     }
@@ -206,12 +206,11 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
           amenities = park.getAmenities();
           LocalParkFragment.this.park = park;
           parkName.setText(park.getName());
-
           populateList();
         }
       }
     }
-    return true;
+    return false;
   }
 
   private void populateList(){
