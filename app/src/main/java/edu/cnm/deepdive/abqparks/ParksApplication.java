@@ -30,7 +30,7 @@ public class ParksApplication extends Application {
 
   /**
    * Get instance of ParksApplication.
-   * @return
+   * @return instance of ParksApplication.
    */
   public static ParksApplication getInstance() {
     return instance;
@@ -38,7 +38,7 @@ public class ParksApplication extends Application {
 
   /**
    * Get GoogleSignInClient.
-   * @return
+   * @return GoogleSignInClient
    */
   public GoogleSignInClient getSignInClient() {
     return signInClient;
@@ -46,7 +46,7 @@ public class ParksApplication extends Application {
 
   /**
    * Set GoogleSignInClient.
-   * @param signInClient
+   * @param signInClient GoogleSignInClient
    */
   public void setSignInClient(GoogleSignInClient signInClient) {
     this.signInClient = signInClient;
@@ -54,7 +54,7 @@ public class ParksApplication extends Application {
 
   /**
    * Get GoogleSignInAccount with profile information.
-   * @return
+   * @return GoogleSignInAccount with profile information.
    */
   public GoogleSignInAccount getSignInAccount() {
     return signInAccount;
@@ -62,7 +62,7 @@ public class ParksApplication extends Application {
 
   /**
    * Set GoogleSignInAccount.
-   * @param signInAccount
+   * @param signInAccount GoogleSignInAccount
    */
   public void setSignInAccount(GoogleSignInAccount signInAccount) {
     this.signInAccount = signInAccount;

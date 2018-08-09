@@ -20,7 +20,7 @@ public class User {
 
   /**
    * Get user ID.
-   * @return
+   * @return user ID.
    */
   public long getId() {
       return id;
@@ -28,7 +28,7 @@ public class User {
 
   /**
    * Set user ID.
-   * @param id
+   * @param id user ID.
    */
   public void setId(long id) {
       this.id = id;
@@ -36,7 +36,7 @@ public class User {
 
   /**
    * Get user's Google ID.
-   * @return
+   * @return user's Google ID.
    */
   public String getGoogleID() {
     return googleID;
@@ -44,7 +44,7 @@ public class User {
 
   /**
    * Set user's Google ID.
-   * @param googleID
+   * @param googleID user's Google ID.
    */
   public void setGoogleID(String googleID) {
     this.googleID = googleID;
@@ -52,7 +52,7 @@ public class User {
 
   /**
    * Get user's last name.
-   * @return
+   * @return user's last name.
    */
   public String getLastName() {
     return lastName;
@@ -60,7 +60,7 @@ public class User {
 
   /**
    * Set user's last name.
-   * @param lastName
+   * @param lastName user's last name.
    */
   public void setLastName(String lastName) {
     this.lastName = lastName;
@@ -68,7 +68,7 @@ public class User {
 
   /**
    * Get user's first name.
-   * @return
+   * @return user's first name.
    */
   public String getFirstName() {
     return firstName;
@@ -76,7 +76,7 @@ public class User {
 
   /**
    * Set user's first name.
-   * @param firstName
+   * @param firstName user's first name.
    */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
@@ -84,7 +84,7 @@ public class User {
 
   /**
    * Get user's email.
-   * @return
+   * @return user's email.
    */
   public String getUserEmail() {
     return userEmail;
@@ -92,7 +92,7 @@ public class User {
 
   /**
    * Set user's email.
-   * @param userEmail
+   * @param userEmail user's email.
    */
   public void setUserEmail(String userEmail) {
     this.userEmail = userEmail;

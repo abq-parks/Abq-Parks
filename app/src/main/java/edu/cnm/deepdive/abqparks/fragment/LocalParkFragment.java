@@ -71,19 +71,6 @@ public class LocalParkFragment extends Fragment implements OnMapReadyCallback,
   private Park park;
   private TextView parkName;
 
-  public LocalParkFragment() {
-    // Required empty public constructor
-  }
-
-  /**
-   * Factory method for creating new LocalParkFragment instances.
-   * @return
-   */
-  public static LocalParkFragment newInstance(String param1, String param2) {
-    LocalParkFragment fragment = new LocalParkFragment();
-    return fragment;
-  }
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

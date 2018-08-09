@@ -21,47 +21,47 @@ public interface ParksService {
 
   /**
    * Get all amenities.
-   * @return
+   * @return all amenities.
    */
   @GET("amenities")
   Call<List<Amenity>> getAmenities();
 
   /**
    * Get parks with user-defined amenities.
-   * @param amenities
-   * @return
+   * @param amenities list of selected amenities.
+   * @return parks with user-defined amenities.
    */
   @GET("parks/{amenities}")
   Call<List<Park>> getParks(@Path("amenities") String amenities);
 
   /**
    * Get all parks.
-   * @return
+   * @return all parks.
    */
   @GET("parks")
   Call<List<Park>> getAllParks();
 
   /**
    * Get all reviews for user-selected park.
-   * @param parkId
-   * @return
+   * @param parkId ID of selected park.
+   * @return all reviews for user-selected park.
    */
   @GET("reviews/{parkId}")
   Call<List<Review>> getReviews(@Path("parkId") long parkId);
 
   /**
    * Get park matching park ID.
-   * @param parkId
-   * @return
+   * @param parkId ID of selected park.
+   * @return park matching park ID.
    */
   @GET("parks/{parkId}")
   Call<Park> getPark(@Path("parkId") long parkId);
 
   /**
    * Post user review of park.
-   * @param args
-   * @param review
-   * @return
+   * @param args comma seperated string containing parkId and userId.
+   * @param review {@link Review} object containing the user's review.
+   * @return user review of park.
    */
   @POST("reviews/{args}")
   @Headers("accept:application/json")
@@ -69,9 +69,9 @@ public interface ParksService {
 
   /**
    * Send user credentials to backend for account creation/verification.
-   * @param user
-   * @param authorization
-   * @return
+   * @param user {@link User} object.
+   * @param authorization authorization string.
+   * @return {@link User} object.
    */
   @POST("users/")
    Call<User> createUser(@Body User user, @Header("Authorization") String authorization);

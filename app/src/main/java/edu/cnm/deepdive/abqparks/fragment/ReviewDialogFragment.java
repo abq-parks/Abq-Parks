@@ -37,10 +37,6 @@ public class ReviewDialogFragment extends DialogFragment {
   private long userId;
   private String reviewId;
 
-  public ReviewDialogFragment() {
-    //Required empty public constructor
-  }
-
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

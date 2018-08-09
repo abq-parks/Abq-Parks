@@ -14,7 +14,7 @@ public class Review {
 
   /**
    * Get review ID.
-   * @return
+   * @return review ID.
    */
   public int getId() {
     return id;
@@ -22,7 +22,7 @@ public class Review {
 
   /**
    * Set review ID.
-   * @param id
+   * @param id review ID.
    */
   public void setId(int id) {
     this.id = id;
@@ -30,7 +30,7 @@ public class Review {
 
   /**
    * Get review ID.
-   * @return
+   * @return review ID.
    */
   public Date getDate() {
     return date;
@@ -38,7 +38,7 @@ public class Review {
 
   /**
    * Set review date.
-   * @param date
+   * @param date review date.
    */
   public void setDate(Date date) {
     this.date = date;
@@ -46,7 +46,7 @@ public class Review {
 
   /**
    * Get review text.
-   * @return
+   * @return review text.
    */
   public String getReview() {
     return review;
@@ -54,7 +54,7 @@ public class Review {
 
   /**
    * Set review text.
-   * @param review
+   * @param review review text.
    */
   public void setReview(String review) {
     this.review = review;

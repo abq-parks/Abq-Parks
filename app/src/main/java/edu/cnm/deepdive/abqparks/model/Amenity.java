@@ -25,7 +25,7 @@ public class Amenity {
 
   /**
    * Set amenity ID.
-   * @param id
+   * @param id amenity ID.
    */
   public void setId(int id) {
     this.id = id;
@@ -33,7 +33,7 @@ public class Amenity {
 
   /**
    * Get amenity name.
-   * @return
+   * @return amenity name.
    */
   public String getName() {
     return name;
@@ -41,7 +41,7 @@ public class Amenity {
 
   /**
    * Set amenity name.
-   * @param name
+   * @param name amenity name.
    */
   public void setName(String name) {
     this.name = name;
@@ -49,7 +49,7 @@ public class Amenity {
 
   /**
    * Get display name.
-   * @return
+   * @return display name.
    */
   public String getDisplayName() {
     return displayName;
@@ -57,7 +57,7 @@ public class Amenity {
 
   /**
    * Set display name.
-   * @param displayName
+   * @param displayName display name.
    */
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
@@ -65,7 +65,7 @@ public class Amenity {
 
   /**
    * Get list of parks with this amenity.
-   * @return
+   * @return list of parks with this amenity.
    */
   public List<Park> getParks() {
     return parks;
@@ -73,7 +73,7 @@ public class Amenity {
 
   /**
    * Set list of parks with this amenity.
-   * @param parks
+   * @param parks list of parks with this amenity.
    */
   public void setParks(List<Park> parks) {
     this.parks = parks;

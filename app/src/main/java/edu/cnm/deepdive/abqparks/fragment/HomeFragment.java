@@ -21,19 +21,6 @@ public class HomeFragment extends Fragment {
 
   private static final int FINE_LOCATION_REQUEST_CODE = 1;
 
-  public HomeFragment() {
-    // Required empty public constructor
-  }
-
-  /**
-   * Factory method for creating new HomeFragment instances.
-   * @return
-   */
-  public static HomeFragment newInstance() {
-    HomeFragment fragment = new HomeFragment();
-    return fragment;
-  }
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {

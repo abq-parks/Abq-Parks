@@ -19,7 +19,7 @@ public class Park {
 
   /**
    * Get park ID.
-   * @return
+   * @return park ID.
    */
   public long getId() {
     return id;
@@ -27,7 +27,7 @@ public class Park {
 
   /**
    * Set park ID.
-   * @param id
+   * @param id park ID.
    */
   public void setId(long id) {
     this.id = id;
@@ -35,7 +35,7 @@ public class Park {
 
   /**
    * Get park name.
-   * @return
+   * @return park name.
    */
   public String getName() {
     return name;
@@ -43,7 +43,7 @@ public class Park {
 
   /**
    * Set park name.
-   * @param name
+   * @param name park name.
    */
   public void setName(String name) {
     this.name = name;
@@ -51,7 +51,7 @@ public class Park {
 
   /**
    * Get latitude coordinate of park.
-   * @return
+   * @return latitude coordinate of park.
    */
   public double getLatitude() {
     return latitude;
@@ -59,7 +59,7 @@ public class Park {
 
   /**
    * Set latitude coordinate of park.
-   * @param latitude
+   * @param latitude latitude coordinate of park.
    */
   public void setLatitude(double latitude) {
     this.latitude = latitude;
@@ -67,7 +67,7 @@ public class Park {
 
   /**
    * Get longitude coordinate of park.
-   * @return
+   * @return longitude coordinate of park.
    */
   public double getLongitude() {
     return longitude;
@@ -75,7 +75,7 @@ public class Park {
 
   /**
    * Set longitude coordinate for park.
-   * @param longitude
+   * @param longitude longitude coordinate for park.
    */
   public void setLongitude(double longitude) {
     this.longitude = longitude;
@@ -83,7 +83,7 @@ public class Park {
 
   /**
    * Get list of amenities this park has.
-   * @return
+   * @return list of amenities this park has.
    */
   public List<Amenity> getAmenities() {
     return amenities;
@@ -91,7 +91,7 @@ public class Park {
 
   /**
    * Set list of amenities that this park has.
-   * @param amenities
+   * @param amenities list of amenities that this park has.
    */
   public void setAmenities(List<Amenity> amenities) {
     this.amenities = amenities;
