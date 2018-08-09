@@ -117,7 +117,6 @@ public class ReviewsFragment extends Fragment {
       } catch (IOException e) {
         cancel(true);
       }
-
       return null;
     }
 
