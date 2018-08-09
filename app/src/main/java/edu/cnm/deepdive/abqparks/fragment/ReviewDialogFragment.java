@@ -41,15 +41,6 @@ public class ReviewDialogFragment extends DialogFragment {
     //Required empty public constructor
   }
 
-  /**
-   * Factory method for creating new ReviewDialogFragment instances.
-   * @return
-   */
-  public static ReviewDialogFragment reviewFragment() {
-    ReviewDialogFragment fragment = new ReviewDialogFragment();
-    return fragment;
-  }
-
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -113,12 +104,11 @@ public class ReviewDialogFragment extends DialogFragment {
       ParksService parksService = retrofit.create(ParksService.class);
       try {
         Response<Review> response = parksService.createReview(reviewId, reviews[0]).execute();
-        if (response.isSuccessful() && response != null) {
-          // TODO Send response.
+        if (response.isSuccessful()) {
+          // TODO Check response to see if post was successful.
         }
       } catch (IOException e) {
-        // TODO Nothing.
-        e.printStackTrace();
+        // Do Nothing for now.
       }
       return null;
     }

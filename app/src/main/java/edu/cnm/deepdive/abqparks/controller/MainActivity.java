@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient.Builder httpClient = new Builder();
     httpClient.addInterceptor(loggingInterceptor);
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL) // TODO: replace with buildconfig or constant
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(new Gson()))
         .client(httpClient.build())
         .build();
