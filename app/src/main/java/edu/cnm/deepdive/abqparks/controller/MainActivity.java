@@ -39,6 +39,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MainActivity extends AppCompatActivity {
 
+  private static final String SHARED_PREFERENCES_KEY = "ABQPARKS";
+  private static final String USER_ID_KEY = "USERID";
+
   private GoogleSignInAccount googleAccount;
   ParksService parkService;
 
@@ -164,9 +167,9 @@ public class MainActivity extends AppCompatActivity {
       if (user != null) {
         Editor editor;
         SharedPreferences sharedPreferences;
-        sharedPreferences = getApplicationContext().getSharedPreferences("ABQPARKS", MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putLong("USERID", user.getId());
+        editor.putLong(USER_ID_KEY, user.getId());
         editor.commit();
       }
     }

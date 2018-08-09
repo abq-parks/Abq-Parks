@@ -30,6 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ReviewDialogFragment extends DialogFragment {
 
   private static final String PARK_ID_KEY = "PARKID";
+  private static final String SHARED_PREFERENCES_KEY = "ABQPARKS";
+  private static final String USER_ID_KEY = "USERID";
 
   private long parkId;
   private long userId;
@@ -55,13 +57,12 @@ public class ReviewDialogFragment extends DialogFragment {
     if (bundle != null) {
       parkId = bundle.getLong(PARK_ID_KEY, -1);
       if (parkId == -1) {
-        // TODO Set to 1 for testing. Change!!
         parkId = 1;
       }
     }
     SharedPreferences sharedPreferences;
-    sharedPreferences = getContext().getApplicationContext().getSharedPreferences("ABQPARKS", MODE_PRIVATE);
-    userId = sharedPreferences.getLong("USERID", -1l);
+    sharedPreferences = getContext().getApplicationContext().getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE);
+    userId = sharedPreferences.getLong(USER_ID_KEY, -1l);
     if (userId == -1l) {
 
     }
