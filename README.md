@@ -35,7 +35,7 @@ Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instruction
 
 
 ## Links to Additional Documents
-* [Wireframe](https://github.com/abq-parks/Abq-Parks/blob/master/docs/Wireframes.pdf)
+* [Wireframe](docs/Wireframes.pdf)
 * [Javadoc](docs/api/index.html)
 
 ## License
