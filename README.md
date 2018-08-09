@@ -16,10 +16,10 @@ storage to improve performance.
 * Android Build Tools v28.0.0
 
 ### Installing
-Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/installation.md) for installation instructions.
+Click [here](docs/installation.md) for installation instructions.
 
 ### Using the App
-Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instructions.md) for basic utilization instructions.
+Click [here](docs/instructions.md) for basic utilization instructions.
 (Abq Parks Service must be running for app to work. [more](https://github.com/abq-parks/services))
 
 ## Tests
@@ -40,8 +40,8 @@ Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instruction
 
 ## Licenses
 * This project is licensed under the Apache License 2.0. [more](https://github.com/abq-parks/Abq-Parks/blob/master/LICENSE)
-* [Retrofit](http://square.github.io/retrofit/)
-* [OkHttp](http://square.github.io/okhttp/)
+* [Retrofit](http://square.github.io/retrofit/#license)
+* [OkHttp](http://square.github.io/okhttp/#license)
 * [GSON](https://github.com/google/gson/blob/master/LICENSE)
 * [Google Maps](https://developers.google.com/terms/site-policies)
 * [Google Sign-In](https://developers.google.com/terms/site-policies)
