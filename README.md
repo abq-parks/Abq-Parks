@@ -38,8 +38,13 @@ Click [here](https://github.com/abq-parks/Abq-Parks/blob/master/docs/instruction
 * [Wireframe](docs/Wireframes.pdf)
 * [Javadoc](docs/api/index.html)
 
-## License
-This project is licensed under the Apache License 2.0. [more](https://github.com/abq-parks/Abq-Parks/blob/master/LICENSE)
+## Licenses
+* This project is licensed under the Apache License 2.0. [more](https://github.com/abq-parks/Abq-Parks/blob/master/LICENSE)
+* [Retrofit](http://square.github.io/retrofit/)
+* [OkHttp](http://square.github.io/okhttp/)
+* [GSON](https://github.com/google/gson/blob/master/LICENSE)
+* [Google Maps](https://developers.google.com/terms/site-policies)
+* [Google Sign-In](https://developers.google.com/terms/site-policies)
 
 ## Team
 * Jason Rafferty
